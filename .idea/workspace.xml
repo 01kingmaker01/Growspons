@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="2138b273-7f00-48f7-83e7-c744cbfb5866" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/app/templates/authentication/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/authentication/login.html" afterDir="false" />
+=======
+    <list default="true" id="cdd47c7d-1056-40f1-820b-c0b3263c0637" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/authentication/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/authentication/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+>>>>>>> be09467e36005809a6eaa0e10826c90a943bb4d3
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +20,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="1yj47LtdBqT1gBuYumkuhUSNURS" />
+=======
+  <component name="ProjectId" id="1yiBMpmWI0i4Fu6qnujGu6eSvyz" />
+>>>>>>> be09467e36005809a6eaa0e10826c90a943bb4d3
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -20,6 +32,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+<<<<<<< HEAD
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -49,10 +62,14 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+=======
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+>>>>>>> be09467e36005809a6eaa0e10826c90a943bb4d3
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="2138b273-7f00-48f7-83e7-c744cbfb5866" name="Default Changelist" comment="" />
       <created>1632751517984</created>
       <option name="number" value="Default" />
@@ -76,4 +93,14 @@
       </map>
     </option>
   </component>
+=======
+      <changelist id="cdd47c7d-1056-40f1-820b-c0b3263c0637" name="Default Changelist" comment="" />
+      <created>1632724486556</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1632724486556</updated>
+    </task>
+    <servers />
+  </component>
+>>>>>>> be09467e36005809a6eaa0e10826c90a943bb4d3
 </project>
