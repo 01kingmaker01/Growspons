@@ -1,7 +1,11 @@
 {% extends "../base.html" %}
 {% load static %}
+{% block title %}
+  Login
+{% endblock title %}
 {% block content %}
 <style>
+
 #login{
     display: grid;
     grid-template-columns: 6fr 4fr;
@@ -19,7 +23,7 @@
     <div class="item">
         <div class="login-form">
             <div class="card card-body w-50 mt-5 m-auto">
-                <h2 class="mb-5 text-center" style="color: #59C8AD;">
+                <h2 class="mb-5 text-center grey-color">
                     Login
                 </h2>
                 <div class="form-floating mb-3">
@@ -31,19 +35,28 @@
                     <label for="floatingPassword">Password</label>
                   </div>
                   <div class="my-3">
-                      <a href="" style="text-decoration: none; color: #59C8AD;">forgot password?</a>
+                      <a href="" style="text-decoration: none;" class="grey-color">forgot password?</a>
                   </div>
+
+                  
                   <div class="my-3">
-                      <button class="btn btn-primary w-100" style="background-color: #59C8AD;border: none;">
+                      <button class="btn btn-primary w-100 grey-bgcolor" style="border: none;">
                           Login
                       </button>
                   </div>
+                 <div class="my-3">
+                    <div class="my-3 grey-color">
+                        Dont have account? <a href="{% url 'signUp' %}" class="light-grey-color" style="text-decoration: none;">create here</a>
+                    </div>
+                 </div>
             </div>
         </div>
     </div>
-    <div class="item" style="background-color:#59C8AD;">
-        <div class="login-info">
-            
+    <div class="item" style="background-color:#222831">
+        <div class="login-info light-color" style="margin-top: 50%;text-align: center;">
+            <h2>WELCOME</h2>
+            <p class="my-1">Lorem ipsum dolor sit amet, adipisicing elit</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, quaerat!</p>
         </div>
     </div>
 </div>
