@@ -9,3 +9,8 @@ def login(request):
 
     context = {}
     return render(request, 'authentication/login.html', context)
+
+def signUp(request):
+
+    context = {}
+    return render(request, 'authentication/signup.html',context)
