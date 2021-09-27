@@ -55,7 +55,7 @@ class Influencer(models.Model):
 class InfluencerPost(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     title=models.CharField(max_length=300)
-    discreption=models.TextField(max_length=500,null=True)
+    discription=models.TextField(max_length=500,null=True)
     field=models.CharField(max_length=50,choices=fields_list)
     post_img=models.ImageField(upload_to="media/profileImg/influencer")
 
@@ -72,7 +72,7 @@ class Sponsored(models.Model):
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
 
     }))
-    transation_id=models.CharField(max_length=50)
+    transaction_id=models.CharField(max_length=50)
     amount=models.IntegerField(null=True)
 
 
