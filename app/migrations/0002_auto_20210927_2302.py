@@ -20,7 +20,11 @@ class Migration(migrations.Migration):
                 ('field', models.CharField(choices=[('Comedy', 'Comedy'), ('Commentary', 'Commentary'), ('Educational', 'Educational'), ('Fashion', 'Fashion'), ('Food', 'Food'), ('Gaming', 'Gaming'), ('Interview', 'Interview'), ('Music', 'Music'), ('ProductReview', 'ProductReview'), ('Q&A', 'Q&A'), ('Reaction', 'Reaction'), ('Sport', 'Sport')], max_length=50)),
                 ('profileImg', models.ImageField(upload_to='media/profileImg/influencer')),
                 ('pancard', models.CharField(max_length=12, null=True)),
+<<<<<<< HEAD
+                ('mode_of_transation', models.CharField(choices=[('1', 'NetBanking'), ('2', 'Card'), ('3', 'UPI'), ('4', 'Other')], max_length=25)),
+=======
                 ('mode_of_transaction', models.CharField(choices=[('1', 'NetBanking'), ('2', 'Card'), ('3', 'UPI'), ('4', 'Other')], max_length=25)),
+>>>>>>> 67d52d66c81dd392df64eb06c7134e59be1fe381
                 ('bank_name', models.CharField(max_length=25, null=True)),
                 ('IFSC_code', models.CharField(max_length=15, null=True)),
                 ('account_no', models.CharField(max_length=15, null=True)),
@@ -45,7 +49,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=300)),
+<<<<<<< HEAD
+                ('discription', models.TextField(max_length=500, null=True)),
+=======
                 ('description', models.TextField(max_length=500, null=True)),
+>>>>>>> 67d52d66c81dd392df64eb06c7134e59be1fe381
                 ('field', models.CharField(choices=[('Comedy', 'Comedy'), ('Commentary', 'Commentary'), ('Educational', 'Educational'), ('Fashion', 'Fashion'), ('Food', 'Food'), ('Gaming', 'Gaming'), ('Interview', 'Interview'), ('Music', 'Music'), ('ProductReview', 'ProductReview'), ('Q&A', 'Q&A'), ('Reaction', 'Reaction'), ('Sport', 'Sport')], max_length=50)),
                 ('post_img', models.ImageField(upload_to='media/profileImg/influencer')),
                 ('influencer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.influencer')),
@@ -69,7 +77,11 @@ class Migration(migrations.Migration):
                 ('profile_img', models.ImageField(upload_to='media/profileImg/sponsor')),
                 ('pancard', models.CharField(max_length=12, null=True)),
                 ('cin_no', models.CharField(max_length=21, null=True)),
+<<<<<<< HEAD
+                ('mode_of_transation', models.CharField(choices=[('1', 'NetBanking'), ('2', 'Card'), ('3', 'UPI'), ('4', 'Other')], max_length=25)),
+=======
                 ('mode_of_transaction', models.CharField(choices=[('1', 'NetBanking'), ('2', 'Card'), ('3', 'UPI'), ('4', 'Other')], max_length=25)),
+>>>>>>> 67d52d66c81dd392df64eb06c7134e59be1fe381
                 ('bank_name', models.CharField(max_length=25, null=True)),
                 ('IFSC_code', models.CharField(max_length=15, null=True)),
                 ('account_no', models.CharField(max_length=15, null=True)),
