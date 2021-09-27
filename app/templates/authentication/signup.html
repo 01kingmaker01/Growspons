@@ -11,43 +11,38 @@ SignUp
     }
 
     .item {
-        height: 100%;
+        height: 100vh;
 
     }
 
     .card {
         border: none;
     }
-
-    .nav {
-        margin-top: 7%;
-        width: 31%;
-        
+    #pills-tab li button{
+        width: 156px;
     }
+
 </style>
 
 <div id="signup">
     <div class="item">
         <div class="signUp-form">
-            <ul class="nav nav-pills mb-3 " id="pills-tab" style="align-items: center;" role="tablist">
+            <ul class="nav nav-pills mb-3 mt-5 pt-3 justify-content-center" id="pills-tab" style="align-items: center;" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                    <button class="nav-link active grey-bgcolor light-color" id="pills-home-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                        aria-selected="true">Home</button>
+                        aria-selected="true" onclick="clickHandle()">Ifluencer</button>
                 </li>
                 <li class="nav-item ms-5" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                    <button class="nav-link grey-bgcolor light-color" id="pills-profile-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                        aria-selected="false">Profile</button>
+                        aria-selected="false" onclick="clickHandle()">Company</button>
                 </li>
                 
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="card card-body w-50 mt-5 m-auto">
-                        <h2 class="mb-5 text-center grey-color">
-                            Sign Up
-                        </h2>
+                    <div class="card card-body w-50 m-auto">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control my-0 py-0" id="name" placeholder="name">
                             <label for="name">Full Name</label>
@@ -86,10 +81,7 @@ SignUp
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="card card-body w-50 mt-5 m-auto">
-                        <h2 class="mb-5 text-center grey-color">
-                            Sign Up
-                        </h2>
+                    <div class="card card-body w-50 m-auto">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control my-0 py-0" id="name" placeholder="name">
                             <label for="name">Company or Sponser Name</label>
@@ -136,9 +128,13 @@ SignUp
     </div>
 
     <div class="item grey-bgcolor">
-        <div class="signUp-info light-color" style="margin-top: 50%;text-align: center;">
-            <h2>WELCOME</h2>
-            <p class="my-1">Lorem ipsum dolor sit amet, adipisicing elit</p>
+        <div class="signUp-info light-color" style="margin-top: 45%;text-align: center;">
+            
+            <h1>WELCOME</h1>
+            <h2 class="my-1">
+                Signup Here
+            </h2>
+            <p class="my-2">Lorem ipsum dolor sit amet, adipisicing elit</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, quaerat!</p>
         </div>
     </div>
