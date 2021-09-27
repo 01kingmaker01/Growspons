@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import fields
+
 # In user Email id and User are same
 
 fields_list=sorted({
@@ -12,7 +12,7 @@ class Sponsor(models.Model):
     profile_img=models.ImageField(upload_to="media/profileImg/sponsor")
     pancard=models.CharField(max_length=12,null=True)
     cin_no=models.CharField(max_length=21,null=True)
-    mode_of_transation=models.CharField(max_length=25,choices=sorted({
+    mode_of_transaction=models.CharField(max_length=25,choices=sorted({
         ("1","NetBanking"),("2","Card"),("3","UPI"),("4","Other")
     }))
     bank_name=models.CharField(max_length=25,null=True)
@@ -32,7 +32,7 @@ class Influencer(models.Model):
     field=models.CharField(max_length=50,choices=fields_list)
     profileImg=models.ImageField(upload_to="media/profileImg/influencer")
     pancard=models.CharField(max_length=12,null=True)
-    mode_of_transation=models.CharField(max_length=25,choices=sorted({
+    mode_of_transaction=models.CharField(max_length=25,choices=sorted({
         ("1","NetBanking"),("2","Card"),("3","UPI"),("4","Other")
     }))
     bank_name=models.CharField(max_length=25,null=True)
@@ -55,7 +55,7 @@ class Influencer(models.Model):
 class InfluencerPost(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     title=models.CharField(max_length=300)
-    discreption=models.TextField(max_length=500,null=True)
+    description=models.TextField(max_length=500,null=True)
     field=models.CharField(max_length=50,choices=fields_list)
     post_img=models.ImageField(upload_to="media/profileImg/influencer")
 
@@ -72,7 +72,6 @@ class Sponsored(models.Model):
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
 
     }))
-    transation_id=models.CharField(max_length=50)
+    transaction_id=models.CharField(max_length=50)
     amount=models.IntegerField(null=True)
-
 
