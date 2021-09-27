@@ -1,0 +1,51 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<style>
+#login{
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+}
+.item{
+    height: 100vh;
+}
+.card{
+    border: none;
+}
+
+</style>
+
+<div id="login">
+    <div class="item">
+        <div class="login-form">
+            <div class="card card-body w-50 mt-5 m-auto">
+                <h2 class="mb-5 text-center" style="color: #59C8AD;">
+                    Login
+                </h2>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control my-0 py-0" id="floatingInput" placeholder="abc@gmail.com">
+                    <label for="floatingInput">Email</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="password" class="form-control my-0 py-0" id="floatingPassword" placeholder="password">
+                    <label for="floatingPassword">Password</label>
+                  </div>
+                  <div class="my-3">
+                      <a href="" style="text-decoration: none; color: #59C8AD;">forgot password?</a>
+                  </div>
+                  <div class="my-3">
+                      <button class="btn btn-primary w-100" style="background-color: #59C8AD;border: none;">
+                          Login
+                      </button>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <div class="item" style="background-color:#59C8AD;">
+        <div class="login-info">
+            
+        </div>
+    </div>
+</div>
+  
+{% endblock content %}
