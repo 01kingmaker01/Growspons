@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def home(request):
@@ -6,7 +6,10 @@ def home(request):
     return render(request, 'home.html', context)
 
 def login(request):
-
+    if request.method == "POST":
+        email = request.GET.get("email")
+        password = request.GET.get("password")
+        return redirect('')
     context = {}
     return render(request, 'authentication/login.html', context)
 
