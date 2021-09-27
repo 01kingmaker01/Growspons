@@ -11,7 +11,7 @@ SignUp
     }
 
     .item {
-        height: 100%;
+        height: 100vh;
 
     }
 
@@ -19,35 +19,121 @@ SignUp
         border: none;
     }
 
-    .nav {
-        margin-top: 7%;
-        width: 31%;
-        
+    ::selection {
+        background: rgba(23, 162, 184, 0.3);
+    }
+
+    .wrapper {
+        max-width: 700px;
+        width: 100%;
+        margin-top: 10px;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 30px 30px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .wrapper header {
+        font-size: 30px;
+        font-weight: 600;
+        padding-bottom: 20px;
+    }
+
+    .wrapper nav {
+        position: relative;
+        justify-content: center;
+        height: 50px;
+        display: flex;
+        align-items: center;
+    }
+
+    .wrapper nav label {
+        display: block;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        color: #000;
+        font-size: 17px;
+        border-radius: 5px;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+    }
+
+    .wrapper nav label:hover {
+        background: #00acb57c;
+    }
+
+    #influencer:checked~nav label.influencer,
+    #company:checked~nav label.company {
+        color: #fff;
+    }
+
+   
+
+    nav .slider {
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        left: 0;
+        bottom: 0;
+        z-index: 0;
+        border-radius: 5px;
+        background: #00ADB5;
+        transition: all 0.3s ease;
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    #company:checked~nav .slider {
+        left: 50%;
+    }
+
+    section .content {
+        display: none;
+        background: #fff;
+    }
+
+    #influencer:checked~section .content-1,
+    #company:checked~section .content-2 {
+        display: block;
+    }
+
+    section .content .title {
+        font-size: 21px;
+        font-weight: 500;
+        margin: 30px 0 10px 0;
+    }
+
+    section .content p {
+        text-align: justify;
     }
 </style>
 
 <div id="signup">
     <div class="item">
-        <div class="signUp-form">
-            <ul class="nav nav-pills mb-3 " id="pills-tab" style="align-items: center;" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                        aria-selected="true">Home</button>
-                </li>
-                <li class="nav-item ms-5" role="presentation">
-                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                        aria-selected="false">Profile</button>
-                </li>
-                
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="card card-body w-50 mt-5 m-auto">
-                        <h2 class="mb-5 text-center grey-color">
-                            Sign Up
-                        </h2>
+        <div class="wrapper mt-5">
+            
+            <input type="radio" name="slider" checked id="influencer">
+            <input type="radio" name="slider" id="company">
+
+            <nav>
+                <label for="influencer" class="influencer">Influencer</label>
+                <label for="company" class="company">Sponsor</label>
+
+                <div class="slider"></div>
+            </nav>
+            <section>
+                <div class="content content-1">
+                    <div class="card card-body w-75 mt-5 m-auto">
+                        
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control my-0 py-0" id="name" placeholder="name">
                             <label for="name">Full Name</label>
@@ -73,23 +159,21 @@ SignUp
                         </div>
 
                         <div class=" my-3">
-                            <button class="btn btn-primary w-100 grey-bgcolor" style="border: none;">
+                            <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
                                 Sign Up
                             </button>
                         </div>
-                        <div class="mb-3">
+                        
                             <div class="my-3 grey-color">
-                                ALready have account? <a href="{% url 'login' %}" class="light-grey-color"
+                                ALready have account? <a href="{% url 'login' %}" class="blue-color"
                                     style="text-decoration: none;">login here</a>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <div class="card card-body w-50 mt-5 m-auto">
-                        <h2 class="mb-5 text-center grey-color">
-                            Sign Up
-                        </h2>
+                <div class="content content-2">
+                    <div class="card card-body w-75 mt-5 m-auto">
+                        
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control my-0 py-0" id="name" placeholder="name">
                             <label for="name">Company or Sponser Name</label>
@@ -115,30 +199,32 @@ SignUp
                         </div>
 
                         <div class=" my-3">
-                            <button class="btn btn-primary w-100 grey-bgcolor" style="border: none;">
+                            <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
                                 Sign Up
                             </button>
                         </div>
-                        <div class="mb-3">
+                        
                             <div class="my-3 grey-color">
-                                ALready have account? <a href="{% url 'login' %}" class="light-grey-color"
+                                ALready have account? <a href="{% url 'login' %}" class="blue-color"
                                     style="text-decoration: none;">login here</a>
                             </div>
-                        </div>
+                        
                     </div>
+                    
                 </div>
-                
-            </div>
-           
-            
 
+            </section>
         </div>
+        
     </div>
 
     <div class="item grey-bgcolor">
-        <div class="signUp-info light-color" style="margin-top: 50%;text-align: center;">
-            <h2>WELCOME</h2>
-            <p class="my-1">Lorem ipsum dolor sit amet, adipisicing elit</p>
+        <div class="signUp-info light-color" style="margin-top: 45%;text-align: center;">
+            <h1>WELCOME</h1>
+            <h2 class="my-1">
+                Signup Here
+            </h2>
+            <p class="my-2">Lorem ipsum dolor sit amet, adipisicing elit</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, quaerat!</p>
         </div>
     </div>
