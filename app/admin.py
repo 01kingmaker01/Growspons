@@ -7,3 +7,5 @@ admin.site.register(Influencer)
 admin.site.register(InfluencerPost)
 admin.site.register(Posted)
 admin.site.register(Sponsored)
+
+
