@@ -133,7 +133,7 @@ SignUp
             <section>
                 {% if messages %}
                 {% for message in messages %}
-                <div style="margin: 20px; text-align: center;" id="alert-div">
+                <div style="margin-top: 20px; text-align: center;" id="alert-div">
                     <strong
                         style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{message}}</strong>
                 </div>
@@ -142,7 +142,7 @@ SignUp
                 <div class="content content-1">
                     <form action="{% url 'signUp' %}" method="post" autocomplete="on">
                         {% csrf_token %}
-                        <div class="card card-body w-75 mt-5 m-auto">
+                        <div class="card card-body w-75 mt-3 m-auto">
 
                             <div class="form-floating mb-3">
                                 <input type="text" id="inf_email" name="inf_email">
