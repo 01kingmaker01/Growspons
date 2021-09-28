@@ -1,4 +1,4 @@
-{% extends "../base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block title %}
 SignUp
@@ -66,7 +66,7 @@ SignUp
     }
 
     .wrapper nav label:hover {
-        background: #00acb57c;
+        background: #1816163a
     }
 
     #influencer:checked~nav label.influencer,
@@ -84,7 +84,7 @@ SignUp
         bottom: 0;
         z-index: 0;
         border-radius: 5px;
-        background: #00ADB5;
+        background: #222831;
         transition: all 0.3s ease;
     }
 
@@ -131,43 +131,50 @@ SignUp
                 <div class="slider"></div>
             </nav>
             <section>
+                {% if messages %}
+                {% for message in messages %}
+                <div style="margin: 20px; text-align: center;" id="alert-div">
+                    <strong
+                        style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{message}}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
                 <div class="content content-1">
-                    <form action="{% url 'signUp' %}" method="post">
+                    <form action="{% url 'signUp' %}" method="post" autocomplete="on">
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-5 m-auto">
 
                             <div class="form-floating mb-3">
-                                {{user_form.first_name}}
-                                <label for="id_first_name">Full Name</label>
+                                <input type="text" id="inf_email" name="inf_email">
+                                <label for="inf_email">Email</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" id="inf_username" name="inf_username">
+                                <label for="inf_username">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" id="inf_name" name="inf_name">
+                                <label for="inf_name">Full Name</label>
                             </div>
 
-                            <div class="form-floating mb-3">
-                                {{user_form.username}}
-                                <label for="id_username">Username</label>
-                            </div>
-
-                            <div class="form-floating mb-3">
-                                {{user_form.email}}
-                                <label for="id_email">Email</label>
-                            </div>
                             <div class="form-floating">
-                                {{user_form.password1}}
-                                <label for="id_password1">Password</label>
+                                <input type="password" id="inf_pass" name="inf_pass">
+                                <label for="inf_pass">Password</label>
                             </div>
                             <br>
                             <div class="form-floating">
-                                {{user_form.password2}}
-                                <label for="id_password2">Confirm Password</label>
+                                <input type="password" id="inf_cpass" name="inf_cpass">
+                                <label for="inf_cpass">Confirm Password</label>
                             </div>
 
                             <div class=" my-3">
-                                <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
+                                <button class="btn btn-primary w-100 grey-bgcolor" style="border: none;">
                                     Sign Up
                                 </button>
                             </div>
 
                             <div class="my-3 grey-color">
-                                ALready have account? <a href="{% url 'login' %}" class="blue-color"
+                                Already have account? <a href="{% url 'login' %}" class="blue-color"
                                     style="text-decoration: none;">login here</a>
                             </div>
 
@@ -175,42 +182,39 @@ SignUp
                     </form>
                 </div>
                 <div class="content content-2">
-                    <form action="{% url 'companySignupHandle' %}" method="post">
+                    <form action="{% url 'companySignupHandle' %}" method="post" autocomplete="on">
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-5 m-auto">
 
-                            <div class="form-floating mb-3">
-                                {{user_form.first_name}}
-                                <label for="id_first_name">Company or Sponser Name</label>
-                            </div>
 
                             <div class="form-floating mb-3">
-                                {{user_form.username}}
-                                <label for="id_username">Company or Sponser username</label>
+                                <input type="text" id="cmp_email" name="cmp_email">
+                                <label for="cmp_email">Company Email</label>
                             </div>
 
-                            <div class="form-floating mb-3">
-                                {{user_form.email}}
-                                <label for="id_email">Company or Sponser Email</label>
+                            <div class="form-floating mb-3 comp_form">
+                                <input type="text" id="cmp_name" name="cmp_name">
+                                <label for="cmp_name">Company Name</label>
                             </div>
+
                             <div class="form-floating">
-                                {{user_form.password1}}
-                                <label for="id_password1">Password</label>
+                                <input type="password" id="cmp_pass" name="cmp_pass">
+                                <label for="cmp_pass">Password</label>
                             </div>
                             <br>
                             <div class="form-floating">
-                                {{user_form.password2}}
-                                <label for="id_password2">Confirm Password</label>
+                                <input type="password" id="cmp_cpass" name="cmp_cpass">
+                                <label for="cmp_cpass">Confirm Password</label>
                             </div>
 
                             <div class=" my-3">
-                                <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
+                                <button class="btn btn-primary w-100 grey-bgcolor" style="border: none;">
                                     Sign Up
                                 </button>
                             </div>
 
                             <div class="my-3 grey-color">
-                                ALready have account? <a href="{% url 'login' %}" class="blue-color"
+                                Already have account? <a href="{% url 'login' %}" class="grey-color"
                                     style="text-decoration: none;">login here</a>
                             </div>
 
