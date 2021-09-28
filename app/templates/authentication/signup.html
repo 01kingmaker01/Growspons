@@ -74,7 +74,7 @@ SignUp
         color: #fff;
     }
 
-   
+
 
     nav .slider {
         position: absolute;
@@ -115,13 +115,12 @@ SignUp
     section .content p {
         text-align: justify;
     }
-
 </style>
 
 <div id="signup">
     <div class="item">
         <div class="wrapper mt-4">
-            
+
             <input type="radio" name="slider" checked id="influencer">
             <input type="radio" name="slider" id="company">
 
@@ -133,103 +132,109 @@ SignUp
             </nav>
             <section>
                 <div class="content content-1">
-                    <div class="card card-body w-75 mt-5 m-auto">
-                        
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control my-0 py-0" id="name" placeholder="name">
-                            <label for="name">Full Name</label>
-                        </div>
+                    <form action="{% url 'signUp' %}" method="post">
+                        {% csrf_token %}
+                        <div class="card card-body w-75 mt-5 m-auto">
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control my-0 py-0" id="username" placeholder="username">
-                            <label for="username">Username</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                {{user_form.first_name}}
+                                <label for="id_first_name">Full Name</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control my-0 py-0" id="email" placeholder="email">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control my-0 py-0" id="password" placeholder="password">
-                            <label for="password">Password</label>
-                        </div>
-                        <br>
-                        <div class="form-floating">
-                            <input type="password" class="form-control my-0 py-0" id="cpassword" placeholder="password">
-                            <label for="cpassword">Confirm Password</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                {{user_form.username}}
+                                <label for="id_username">Username</label>
+                            </div>
 
-                        <div class=" my-3">
-                            <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
-                                Sign Up
-                            </button>
-                        </div>
-                        
+                            <div class="form-floating mb-3">
+                                {{user_form.email}}
+                                <label for="id_email">Email</label>
+                            </div>
+                            <div class="form-floating">
+                                {{user_form.password1}}
+                                <label for="id_password1">Password</label>
+                            </div>
+                            <br>
+                            <div class="form-floating">
+                                {{user_form.password2}}
+                                <label for="id_password2">Confirm Password</label>
+                            </div>
+
+                            <div class=" my-3">
+                                <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
+                                    Sign Up
+                                </button>
+                            </div>
+
                             <div class="my-3 grey-color">
                                 ALready have account? <a href="{% url 'login' %}" class="blue-color"
                                     style="text-decoration: none;">login here</a>
                             </div>
-                        
-                    </div>
+
+                        </div>
+                    </form>
                 </div>
                 <div class="content content-2">
-                    <div class="card card-body w-75 mt-5 m-auto">
-                        
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control my-0 py-0" id="name" placeholder="name">
-                            <label for="name">Company or Sponser Name</label>
-                        </div>
+                    <form action="{% url 'companySignupHandle' %}" method="post">
+                        {% csrf_token %}
+                        <div class="card card-body w-75 mt-5 m-auto">
 
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control my-0 py-0" id="username" placeholder="username">
-                            <label for="username">Company or Sponser Username</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                {{user_form.first_name}}
+                                <label for="id_first_name">Company or Sponser Name</label>
+                            </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control my-0 py-0" id="email" placeholder="email">
-                            <label for="email">Company or Sponser Email</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control my-0 py-0" id="password" placeholder="password">
-                            <label for="password">Password</label>
-                        </div>
-                        <br>
-                        <div class="form-floating">
-                            <input type="password" class="form-control my-0 py-0" id="cpassword" placeholder="password">
-                            <label for="cpassword">Confirm Password</label>
-                        </div>
+                            <div class="form-floating mb-3">
+                                {{user_form.username}}
+                                <label for="id_username">Company or Sponser username</label>
+                            </div>
 
-                        <div class=" my-3">
-                            <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
-                                Sign Up
-                            </button>
-                        </div>
-                        
+                            <div class="form-floating mb-3">
+                                {{user_form.email}}
+                                <label for="id_email">Company or Sponser Email</label>
+                            </div>
+                            <div class="form-floating">
+                                {{user_form.password1}}
+                                <label for="id_password1">Password</label>
+                            </div>
+                            <br>
+                            <div class="form-floating">
+                                {{user_form.password2}}
+                                <label for="id_password2">Confirm Password</label>
+                            </div>
+
+                            <div class=" my-3">
+                                <button class="btn btn-primary w-100 blue-bgcolor" style="border: none;">
+                                    Sign Up
+                                </button>
+                            </div>
+
                             <div class="my-3 grey-color">
                                 ALready have account? <a href="{% url 'login' %}" class="blue-color"
                                     style="text-decoration: none;">login here</a>
                             </div>
-                        
-                    </div>
-                    
+
+                        </div>
+
+                    </form>
                 </div>
 
             </section>
         </div>
-        
+
     </div>
 
     <div class="item grey-bgcolor">
         <div class="signUp-info light-color" style="margin-top: 45%;text-align: center;">
-            <h1>WELCOME</h1>
-            <h2 class="my-1">
-                Signup Here
-            </h2>
-            <p class="my-2">Lorem ipsum dolor sit amet, adipisicing elit</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, quaerat!</p>
+            <h2>WELCOME !</h2>
+            <h6 class="my-1">
+                create account to getting started
+            </h6>
+            <p class="my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, blanditiis.</p>
         </div>
     </div>
 </div>
 
 
+<script src="{% static  'js/signup.js' %}"></script>
 {% endblock content %}
