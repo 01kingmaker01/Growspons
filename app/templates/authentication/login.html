@@ -38,7 +38,15 @@ Login
                         placeholder="password">
                     <label for="password">Password</label>
                 </div>
-                
+
+                {% if messages %}
+                {% for message in messages %}
+                <div style="margin: 10px 20px;">
+                    <strong style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{message}}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
+
                 <div class="my-3">
                     <a href="" style="text-decoration: none;" class="grey-color">forgot password?</a>
                 </div>
@@ -51,7 +59,7 @@ Login
                 </div>
                 <div class="my-3">
                     <div class="my-3 ">
-                        Dont have account? <a href="{% url 'signUp' %}" class="light-grey-color"
+                        Dont have account? <a href="{% url 'signUp' %}" class="blue-color"
                             style="text-decoration: none;">create here</a>
                     </div>
                 </div>

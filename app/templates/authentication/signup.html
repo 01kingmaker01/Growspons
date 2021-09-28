@@ -131,11 +131,19 @@ SignUp
                 <div class="slider"></div>
             </nav>
             <section>
+                {% if messages %}
+                {% for message in messages %}
+                <div style="margin: 20px; text-align: center;" id="alert-div">
+                    <strong
+                        style="color: red;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{message}}</strong>
+                </div>
+                {% endfor %}
+                {% endif %}
                 <div class="content content-1">
                     <form action="{% url 'signUp' %}" method="post" autocomplete="on">
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-5 m-auto">
-                            
+
                             <div class="form-floating mb-3">
                                 <input type="text" id="inf_email" name="inf_email">
                                 <label for="inf_email">Email</label>
@@ -166,7 +174,7 @@ SignUp
                             </div>
 
                             <div class="my-3 grey-color">
-                                Already have account? <a href="{% url 'login' %}" class="grey-color"
+                                Already have account? <a href="{% url 'login' %}" class="blue-color"
                                     style="text-decoration: none;">login here</a>
                             </div>
 
@@ -178,7 +186,7 @@ SignUp
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-5 m-auto">
 
-                            
+
                             <div class="form-floating mb-3">
                                 <input type="text" id="cmp_email" name="cmp_email">
                                 <label for="cmp_email">Company Email</label>

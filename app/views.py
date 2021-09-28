@@ -75,7 +75,7 @@ def companySignupHandle(request):
             messages.error(request, f"Password should contain atleast 6 digit, upper lower case and one symbol")
             return redirect('signUp')
     else:
-        messages.error(request, f"Password and cpassword should be same")
+        messages.error(request, f"Password and confirm password should be same")
         return redirect('signUp')
 
 
