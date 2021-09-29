@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # In user Email id and User are same
 
 fields_list=sorted({
-    ("Commentary","Commentary"),("ProductReview","ProductReview"),("Comedy","Comedy"),("Reaction","Reaction"),("Q&A","Q&A"),("Interview","Interview"),("Educational","Educational"),("Music","Music"),("Gaming","Gaming"),("Sport","Sport"),("Food","Food"),("Fashion","Fashion")
+    ("Commentary","Commentary"),("ProductReview","ProductReview"),("Comedy","Comedy"),("Reaction","Reaction"),("Q&A","Q&A"),("Interview","Interview"),("Educational","Educational"),("Music","Music"),("Gaming","Gaming"),("Sport","Sport"),("Food","Food"),("Fashion","Fashion"),("Travel","Travel")
 })
 class Sponsor(models.Model):
     sponsor_id=models.OneToOneField(User,on_delete=models.CASCADE)
@@ -27,6 +27,8 @@ class Sponsor(models.Model):
     other_link=models.URLField(null=True)
     is_verified=models.BooleanField(null=True)
 
+    def __str__(self):
+        return str(self.sponsor_id)
 class Influencer(models.Model):
     influencer_id=models.OneToOneField(User,on_delete=models.CASCADE)
     field=models.CharField(max_length=50,choices=fields_list)
