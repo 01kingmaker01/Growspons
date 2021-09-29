@@ -65,8 +65,7 @@ def signupHandle(request):
         if password == cpassword:
             if password_val(password):
                 try:
-                    user = User.objects.create_user(username=username, password=password, email=email,
-                                                    first_name=first_name)
+                    user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name)
                     group = Group.objects.get(name='Influencer')
                     user.groups.add(group)
                     user.save()
@@ -98,6 +97,7 @@ def companySignupHandle(request):
                 user = User.objects.create_user(username=email, password=password, email=email, first_name=first_name)
                 group = Group.objects.get(name='Company')
                 user.groups.add(group)
+                user.is_staff=True
                 user.save()
                 login(request, user)
                 request.session.set_expiry(60 * 60 * 24 * 7)
