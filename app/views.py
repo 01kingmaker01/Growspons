@@ -3,9 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
+
+from .models import Influencer
 from .utils import *
 from app.decorators import unauthenticated_user, allowed_users
-from app.forms import UserForm
+from app.forms import UserForm, InfluencerForm
 
 group_inf='Influencer'
 
@@ -18,8 +20,17 @@ def home(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def influencer_details(request):
-    content = {}
+    inf_form = InfluencerForm()
+    if request.method == 'POST':
+        inf_form = InfluencerForm(request.POST, request.FILES)
+        if inf_form.is_valid():
+            inf_form.save()
+            return redirect('home')
+    content = {'inf_form':inf_form, 'user':User.objects.get(username=request.user.username)}
     return render(request, 'add_details.html', content)
+
+
+
 
 @unauthenticated_user
 def loginHandle(request):
@@ -62,7 +73,7 @@ def signupHandle(request):
                     login(request, user)
                     request.session.set_expiry(60 * 60 * 24 * 7)
                     messages.success(request, f"created")
-                    return redirect('home')
+                    return redirect('influencer_details')
                 except:
                     messages.error(request, f"username already exist")
                     return redirect('signUp')
