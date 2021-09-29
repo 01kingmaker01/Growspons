@@ -11,8 +11,7 @@ from app.forms import UserForm, InfluencerForm
 
 group_inf='Influencer'
 
-@login_required(login_url='login')
-@allowed_users(allowed_roles=[group_inf])
+
 def home(request):
     content = {}
     return render(request, 'home.html', content)

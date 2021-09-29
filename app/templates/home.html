@@ -1,14 +1,174 @@
-<<<<<<< HEAD
-=======
+
+<!doctype html>
+{% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Influencer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable = no">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{%static 'css/home.css'%}">
+
+    <title>Hello, world!</title>
+
+
+
 </head>
+
 <body>
-    
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark grey-bgcolor">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">GrowSpon</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <form class="d-flex">
+                        <input class="form-control me-2" style="width: 180px;" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 " style="margin-left: 55%;">
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="#">Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">LogOut</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="hero-div center container">
+            <h1>Influence and Creativity,<br>
+                On Demand.</h1>
+            <p>From sponsored TikTok videos to Instagram posts, bring your content to life with the most innovative
+                creators
+                in the marketplace.</p>
+            <div class="hero-btns">
+                <button type="button" class="btn-trans">Get Started-It's Free</button>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div class="slidershow middle">
+        <div class="slides">
+
+            <input type="radio" name="r" id="r1" checked>
+
+            <input type="radio" name="r" id="r2">
+            <input type="radio" name="r" id="r3">
+            <input type="radio" name="r" id="r4">
+            <div class="slide s1">
+                <img src="{%static 'img/1.jpg'%}" alt="">
+                <div class="info">
+                    <a href=""><h7>Instagram</h7></a>
+                    <p>Fitness | Fashion | Lifestyle!</p>
+                </div>
+
+            </div>
+            <div class="slide">
+                <img src="{%static 'img/11.jpg'%}" alt="">
+                <div class="info">
+                    <a href=""><h7>Instagram Reels</h7></a>
+                    <p>Fashion | Beauty | Lifestyle!</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="{%static 'img/12.jpg'%}" alt="">
+                <div class="info">
+                    <a href=""><h7>MX-Takatak</h7></a>
+                    <p>Surprise and Delight on TikTok! Food for the Soul</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="{%static 'img/13.jpg'%}" alt="">
+                <div class="info">
+                    <a href=""><h7>Facebook</h7></a>
+                    <p>I Want Your Products In My Home!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <label for="r1" class="bar"></label>
+            <label for="r2" class="bar"></label>
+            <label for="r3" class="bar"></label>
+            <label for="r4" class="bar"></label>
+        </div>
+    </div>
+
+
+
+    <section class="detail">
+        <div class="container">
+            <h1 style="text-align: center; font-size: 25px; font-weight: 800; font-family: poppins;">How GrowSpon work !
+            </h1>
+            <div class="row">
+                <div class="detail-item ">
+                    <h4>Create a Shake</h4>
+                    <div class="line"></div>
+                    <p>Your Shake is the service that you sell. Each Shake you create
+                        details delivery time, usage rights, price and more.</p>
+
+                </div>
+                <div class="detail-item">
+                    <h4>Accept Incoming Orders</h4>
+                    <div class="line"></div>
+                    <p>Once your Shake is approved, Buyers can view and purchase them in our public marketplace, or
+                        message you directly.</p>
+
+                </div>
+                <div class="detail-item">
+                    <h4>Work Your Magic</h4>
+                    <div class="line"></div>
+                    <p>After accepting an order, communicate with the buyer and deliver content through our guided chat
+                        experience.</p>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
 
 </body>
+
 </html>
->>>>>>> 437e093b44250da2392f40a8768179aeec9c71d8
+
