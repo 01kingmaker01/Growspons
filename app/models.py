@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # In user Email id and User are same
 
 fields_list=sorted({
-    ("Commentary","Commentary"),("ProductReview","ProductReview"),("Comedy","Comedy"),("Reaction","Reaction"),("Q&A","Q&A"),("Interview","Interview"),("Educational","Educational"),("Music","Music"),("Gaming","Gaming"),("Sport","Sport"),("Food","Food"),("Fashion","Fashion")
+    ("Commentary","Commentary"),("ProductReview","ProductReview"),("Comedy","Comedy"),("Reaction","Reaction"),("Q&A","Q&A"),("Interview","Interview"),("Educational","Educational"),("Music","Music"),("Gaming","Gaming"),("Sport","Sport"),("Food","Food"),("Fashion","Fashion"),("Travels","Travels")
 })
 class Sponsor(models.Model):
     sponsor_id=models.OneToOneField(User,on_delete=models.CASCADE)
@@ -26,6 +26,9 @@ class Sponsor(models.Model):
     twitter=models.URLField(null=True)
     other_link=models.URLField(null=True)
     is_verified=models.BooleanField(null=True)
+
+    def __str__(self):
+        return str(self.sponsor_id.username)
 
 class Influencer(models.Model):
     influencer_id=models.OneToOneField(User,on_delete=models.CASCADE)
@@ -53,6 +56,10 @@ class Influencer(models.Model):
     other_link=models.URLField(null=True)
     is_verified=models.BooleanField(null=True, default=False)
 
+    def __str__(self):
+        return str(self.influencer_id.username)
+
+
 class InfluencerPost(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     title=models.CharField(max_length=300)
@@ -60,11 +67,16 @@ class InfluencerPost(models.Model):
     field=models.CharField(max_length=50,choices=fields_list)
     post_img=models.ImageField(upload_to="media/profileImg/influencer")
 
+    def __str__(self):
+        return str(self.title)
+
 class Posted(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     content_link=models.URLField()
     is_accepted=models.BooleanField()
     comment=models.CharField(max_length=300)
+    def __str__(self):
+        return str(self.influencer.influencer_id.username)
 
 class Sponsored(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
