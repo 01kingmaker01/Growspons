@@ -1,22 +1,44 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
+
+from .models import Influencer
 from .utils import *
-from app.decorators import unauthenticated_user
-from app.forms import UserForm
+from app.decorators import unauthenticated_user, allowed_users
+from app.forms import UserForm, InfluencerForm
 
+group_inf='Influencer'
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
 def home(request):
-    context = {}
-    return render(request, 'home.html', context)
+    content = {}
+    return render(request, 'home.html', content)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def influencer_details(request):
+    inf_form = InfluencerForm()
+    if request.method == 'POST':
+        inf_form = InfluencerForm(request.POST, request.FILES)
+        if inf_form.is_valid():
+            inf_form.save()
+            return redirect('home')
+    content = {'inf_form':inf_form, 'user':User.objects.get(username=request.user.username)}
+    return render(request, 'add_details.html', content)
+
+
+
 
 @unauthenticated_user
 def loginHandle(request):
     if request.method == "POST":
-        email = request.POST.get("email")
+        username = request.POST.get("username")
         password = request.POST.get("password")
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             request.session.set_expiry(60 * 60 * 24 * 7)
@@ -29,8 +51,8 @@ def loginHandle(request):
         else:
             messages.error(request, 'Wrong username or password')
             return redirect('login')
-    context = {}
-    return render(request, 'authentication/login.html', context)
+    content = {}
+    return render(request, 'authentication/login.html', content)
 
 @unauthenticated_user
 def signupHandle(request):
@@ -43,21 +65,29 @@ def signupHandle(request):
         username = request.POST.get("inf_username")
         if password == cpassword:
             if password_val(password):
-                user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name)
-                group = Group.objects.get(name='Influencer')
-                user.groups.add(group)
-                user.save()
-                messages.success(request, f"created")
-                return redirect('home')
+                try:
+                    user = User.objects.create_user(username=username, password=password, email=email,
+                                                    first_name=first_name)
+                    group = Group.objects.get(name='Influencer')
+                    user.groups.add(group)
+                    user.save()
+                    login(request, user)
+                    request.session.set_expiry(60 * 60 * 24 * 7)
+                    messages.success(request, f"created")
+                    return redirect('influencer_details')
+                except:
+                    messages.error(request, f"username already exist")
+                    return redirect('signUp')
             else:
                 messages.error(request, f"Password should contain atleast 6 digit, upper lower case and one symbol")
                 return redirect('signUp')
         else:
             messages.error(request, f"Password and cpassword should be same")
             return redirect('signUp')
-    context = {}
-    return render(request, 'authentication/signup.html',context)
+    content = {}
+    return render(request, 'authentication/signup.html',content)
 
+@unauthenticated_user
 def companySignupHandle(request):
     email = request.POST.get("cmp_email")
     password = request.POST.get("cmp_pass")
@@ -65,12 +95,19 @@ def companySignupHandle(request):
     first_name = request.POST.get("cmp_name")
     if password == cpassword:
         if password_val(password):
-            user = User.objects.create_user(username=email, password=password, email=email, first_name=first_name)
-            group = Group.objects.get(name='Company')
-            user.groups.add(group)
-            user.save()
-            messages.success(request, f"created")
-            return redirect('index')
+            try:
+                user = User.objects.create_user(username=email, password=password, email=email, first_name=first_name)
+                group = Group.objects.get(name='Company')
+                user.groups.add(group)
+                user.save()
+                login(request, user)
+                request.session.set_expiry(60 * 60 * 24 * 7)
+                messages.success(request, f"created")
+                return redirect('index')
+            except:
+                messages.error(request, f"username already exist")
+                return redirect('signUp')
+
         else:
             messages.error(request, f"Password should contain atleast 6 digit, upper lower case and one symbol")
             return redirect('signUp')
