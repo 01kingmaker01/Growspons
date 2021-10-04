@@ -61,39 +61,18 @@ profile
 
       <div id="social-media-details" style="display: none;">
         <h3 class="light-color text-center my-3">Social Media Handles</h3>
-        <div class="social-div px-5" style="max-height: 450px;overflow-y: scroll;">
-          <div class="form-floating mb-4">
-            {{inf_form.youtube}}
-            <label for="id_youtube">Youtube Handle</label>
-          </div>
-          <div class="form-floating mb-4">
-            {{inf_form.subscriber}}
-            <label for="id_dob_subscriber">Youtube Subscriber</label>
-          </div>
 
-          <div class="form-floating mb-4">
-            {{inf_form.instagram}}
-            <label for="id_instagram">Instagram Handle</label>
+        <div class="form-floating mb-4" style="display: none;">
+          {{inf_form.is_verified}}
+        </div>
+        <div class="row">
+          {% for i in for_loop %}
+          <div class="col-4 my-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{i}}"
+            style="text-align: center;cursor: pointer;">
+            <div class="py-5 border light-bgcolor" id="div{{i}}"><i class="fas fa-plus" id="plus{{i}}"></i></div>
           </div>
-          <div class="form-floating mb-4">
-            {{inf_form.follower}}
-            <label for="id_follower">Instagram Followers</label>
-          </div>
-          <div class="form-floating mb-4">
-            {{inf_form.twitter}}
-            <label for="id_twitter">Twitter Handle</label>
-          </div>
-          <div class="form-floating mb-4">
-            {{inf_form.facebook}}
-            <label for="id_facebook">Facebook Handle</label>
-          </div>
-          <div class="form-floating mb-4">
-            {{inf_form.other_link}}
-            <label for="id_other_link">Other</label>
-          </div>
-          <div class="form-floating mb-4" style="display: none;">
-            {{inf_form.is_verified}}
-          </div>
+          {% endfor %}
+
         </div>
 
         <div style="display: none;">
@@ -102,9 +81,10 @@ profile
           {{inf_form.bank_name}}
           {{inf_form.IFSC_code}}
           {{inf_form.account_no}}
+          <input type="text" id="social_media_list" name="social_media_list">
         </div>
 
-        <div class="mb-3 mt-3 d-flex justify-content-center">
+        <div class="mb-3 mt-5 d-flex justify-content-center">
           <button type="button" class="btn btn-outline-primary w-25 me-3" id="prev">Back</button>
           <button type="submit" class="btn btn-outline-primary w-25">Submit</button>
         </div>
@@ -113,6 +93,57 @@ profile
   </div>
 
 </div>
+
+
+
+
+<!-- modal -->
+
+{% for i in for_loop %}
+<div class="modal fade" id="staticBackdrop{{i}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: #eee;">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" enctype="multipart/form-data">
+          <div class="form-floating mb-3">
+            <select class="form-select" id="social_media{{i}}" name="social_media{{i}}"
+              aria-label="Floating label select example">
+              <option selected hidden></option>
+              <option value="youtube">Youtube</option>
+              <option value="instagram">Instagram</option>
+              <option value="twitter">Twitter</option>
+              <option value="facebook">Facebook</option>
+              <option value="other">Other</option>
+            </select>
+            <label for="social_media{{i}}">Select Social Media Handle</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="follower{{i}}" name="follower{{i}}" placeholder="follower">
+            <label for="follower{{i}}">Followers</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="url{{i}}" name="url{{i}}" placeholder="url">
+            <label for="url{{i}}">URL</label>
+          </div>
+
+
+          <div class="mb-3 d-flex justify-content-center">
+            <button type="button" id="btn{{i}}" class="btn btn-outline-primary w-50">
+              Add
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 
 <script>
   $("input").addClass("form-control")
@@ -146,16 +177,35 @@ profile
       $("#personal-details").show()
       $("#social-media-details").hide()
     })
+    let social_handle_obj = {}
 
-    
+    for (let index = 0; index < 6; index++) {
+      $("#btn" + index).click(function (e) {
+        let social_media = "<p><strong>" + $("#social_media" + index).val().toUpperCase() + "</strong></p>"
+        let follower = "<p>" + $("#follower" + index).val() + " followers</p>"
+
+        $("#plus" + index).hide()
+        $("#div" + index).html(social_media + follower)
+        $("#div" + index).removeClass('py-5')
+        $("#div" + index).addClass('pt-3 pb-4')
+        social_handle_obj[index] = {
+          "social_media": $("#social_media" + index).val(),
+          "follower": $("#follower" + index).val(),
+          "url": $("#url" + index).val()
+        }
+
+        $("#social_media_list").val(JSON.stringify(social_handle_obj))
+        console.log(social_handle_obj)
+        $(".btn-close").trigger("click")
+      })
+
+    }
+
+
   })
-  
-  
 
-  // function fileTrig(event){
-  //   let e = $("#id_profileImg").trigger('click')
-  // }
-  $("#id_dob").attr('type','date')
+
+  $("#id_dob").attr('type', 'date')
 
 </script>
 {% endblock content %}
