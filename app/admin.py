@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.site.register(Sponsor)
 admin.site.register(Influencer)
 admin.site.register(InfluencerPost)
-admin.site.register(Posted)
+admin.site.register(Content)
 admin.site.register(Sponsored)
 
 
