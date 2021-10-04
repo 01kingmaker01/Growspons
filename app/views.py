@@ -49,7 +49,10 @@ def influencer_details(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def dashboardInf(request):
-    content = {}
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    posts = InfluencerPost.objects.all()
+    all_influencer = Influencer.objects.all()[:3]
+    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer}
     return render(request, 'dashboard.html', content)
 
 
