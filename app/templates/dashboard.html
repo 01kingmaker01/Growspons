@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+profile
+{% endblock title %}
+
+{% block content %}
+
+<style>
+.grid-container-dashboard{
+    display: grid;
+    grid-template-columns: 6fr 2fr;
+}
+.nav-items{
+    nav-down: auto;
+
+}
+
+.grid-item3{
+    border-left: 2px solid #a1a1a1;
+}
+</style>
+
+
+<div class="sideNav" style="height: 100vh;position: fixed;left: 0;">
+   <div class="card card-body">
+       <div class="nav-items">
+           hello
+       </div>
+       <div class="nav-items">
+           hello
+       </div>
+       <div class="nav-items">
+           hello
+       </div>
+   </div>
+</div>
+<div class="grid-container-dashboard">
+    <div class="grid-item2" style="height: 100vh;"></div>
+    <div class="grid-item3" style="height: 100vh;"></div>
+</div>
+
+{% endblock %}

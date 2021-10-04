@@ -73,9 +73,9 @@ class InfluencerPost(models.Model):
     post_img=models.ImageField(upload_to="media/profileImg/influencer")
 
     def __str__(self):
-        return str(self.title)
+        return str(self.title)+","+str(self.influencer)
 
-class Posted(models.Model):
+class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     content_link=models.URLField()
     is_accepted=models.BooleanField()
@@ -86,7 +86,7 @@ class Posted(models.Model):
 class Sponsored(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     sponsor=models.ForeignKey(Sponsor,on_delete=models.CASCADE)
-    posted=models.ForeignKey(Posted,on_delete=models.CASCADE)
+    posted=models.ForeignKey(Content,on_delete=models.CASCADE)
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
 
     }))

@@ -12,3 +12,8 @@ class InfluencerForm(ModelForm):
     class Meta:
         model=Influencer
         fields='__all__'
+
+class InluencerPostForm(ModelForm):
+    class Meta:
+        model=InfluencerPost
+        fields='__all__'
