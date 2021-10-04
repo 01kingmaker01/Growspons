@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from .utils import *
 from app.decorators import unauthenticated_user, allowed_users
-from app.forms import UserForm, InfluencerForm
+from app.forms import UserForm, InfluencerForm, InluencerPostForm
 
 group_inf='Influencer'
 
@@ -46,6 +46,46 @@ def influencer_details(request):
 
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def dashboardInf(request):
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    posts = InfluencerPost.objects.all()
+    all_influencer = Influencer.objects.all()[:3]
+    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer}
+    return render(request, 'dashboard.html', content)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def influencerPost(request):
+    form = InluencerPostForm()
+    if request.method == "POST":
+        form = InluencerPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboardInf')
+        else:
+            return redirect('dashboardInf')
+
+    content = {'form':form,'user':Influencer.objects.get(influencer_id=request.user.id),}
+    return render(request, 'influencer_post.html', content)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @unauthenticated_user
 def loginHandle(request):
@@ -60,7 +100,7 @@ def loginHandle(request):
                 # messages.success(request, 'welcome back :)')
                 return redirect('index')
             # messages.success(request, 'welcome back :)')
-            return redirect('home')
+            return redirect('dashboardInf')
 
         else:
             messages.error(request, 'Wrong username or password')

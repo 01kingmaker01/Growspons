@@ -17,13 +17,13 @@ profile
   }
 </style>
 
-<div class="grey-bgcolor pt-5" style="height: 100vh;">
+<div class="pt-5 mt-5" style="height: 100vh;">
 
-  <div class="card card-body w-50 mx-auto grey-bgcolor px-5" style="border: 2px groove #eee">
+  <div class="card card-body w-50 grey-color mx-auto px-5" style="border: 2px groove #eee">
     <form action="" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div id="personal-details">
-        <h3 class="light-color text-center my-3">Personal Details</h3>
+        <h3 class="text-center my-3">Personal Details</h3>
         <div class="mb-3" style="display: none;">
           {{inf_form.influencer_id}}
         </div>
@@ -33,7 +33,7 @@ profile
         </div>
         <div class=" mb-3">
           <!-- <input type="text" value="choose profile image" id="profile-img-in" readonly style="cursor: pointer;" onclick="fileTrig()"> -->
-          <label for="id_profileImg" style="color: #eee;">Profile Image</label>
+          <label for="id_profileImg">Profile Image</label>
           {{inf_form.profileImg}}
 
         </div>
@@ -60,7 +60,7 @@ profile
       </div>
 
       <div id="social-media-details" style="display: none;">
-        <h3 class="light-color text-center my-3">Social Media Handles</h3>
+        <h3 class="text-center my-3">Social Media Handles</h3>
 
         <div class="form-floating mb-4" style="display: none;">
           {{inf_form.is_verified}}
@@ -147,7 +147,7 @@ profile
 
 <script>
   $("input").addClass("form-control")
-  $("input").prop("placeholder", "abc")
+  $("input").prop("placeholder", "search")
   $("select").addClass("form-select")
   $("textarea").addClass("form-control")
   $("textarea").prop("placeholder", "abc")

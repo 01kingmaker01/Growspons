@@ -76,13 +76,17 @@
         color: #fff;
         flex: column
     }
+    
 </style>
-<div class="row mt-4">
+<div class="row mt-4" style="overflow-x: hidden ; max-width: 100%;">
     <div class="col-2 text-center">
-        <h3 class="d-flex justify-content-start ml-3 ms-3">Menu</h3>
+        
         <div class="card shadow-lg p-0 mb-5 bg-body rounded ms-3">
             <div class="card-body">
                 <table class="table table-hover">
+                    <tr>
+                        <th><strong> MENU</strong></th>
+                    </tr>
                     <tbody>
                         <tr>
                             <th><strong><i class="fas fa-home"></i> Home</strong></th>
@@ -109,6 +113,8 @@
         </div>
 
     </div>
+    
+    
     <div class="col-8">
         <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -124,18 +130,79 @@
                     role="tab" aria-controls="contact" aria-selected="false">Travel</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
-                    role="tab" aria-controls="contact" aria-selected="false">Educational</button>
+                <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education"
+                    type="button" role="tab" aria-controls="education" aria-selected="false">Educational</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-                <div class="row">
+                <div class="row justify-content-center">
+                    {% for post in posts|slice:":3" %}
+                    
+                    <div class="col-4">
+                        <a href="{% url 'posted' post.id %}">
+                        <div class="wrapper">
+                            <div class="profile"
+                                style="background: url('{{post.post_img.url}}');background-size: cover;">
+                                <div class="overlay">
+                                    <div class="about d-flex flex-column">
+                                        <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+                                    </div>
+                                    <ul class="social-icons">
+                                        <li><i class="fab fa-facebook-f"></i></li>
+                                        <li><i class="fab fa-youtube"></i></li>
+                                        <li><i class="fab fa-twitter"></i></li>
+                                        <li><i class="fab fa-instagram"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                    
+                    {%endfor%}
+                </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row justify-content-center">
                     {% for post in posts %}
+                    {% ifequal post.field "Fashion" %}
+                    <div class="col-4">
+                        <a href="{% url 'posted' post.id %}">
+                        <div class="wrapper">
+                            <div class="profile"
+                                style="background: url('{{post.post_img.url}}');background-size: cover;">
+                                <div class="overlay">
+                                    <div class="about d-flex flex-column">
+                                        <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+                                    </div>
+                                    <ul class="social-icons">
+                                        <li><i class="fab fa-facebook-f"></i></li>
+                                        <li><i class="fab fa-youtube"></i></li>
+                                        <li><i class="fab fa-twitter"></i></li>
+                                        <li><i class="fab fa-instagram"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
+                    {%endifequal%}
+                    {%endfor%}
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="row justify-content-center">
+                    {% for post in posts %}
+                    {% ifequal post.field "Travel" %}
                     <div class="col-4">
                         <div class="wrapper">
-                            <div class="profile" style="background: url('{{post.post_img.url}}');background-size: cover;">
+                            <div class="profile"
+                                style="background: url('{{post.post_img.url}}');background-size: cover;">
                                 <div class="overlay">
                                     <div class="about d-flex flex-column">
                                         <h4>{{post.title}}</h4> <span>{{post.field}}</span>
@@ -150,29 +217,56 @@
                             </div>
                         </div>
                     </div>
+                    {%endifequal%}
                     {%endfor%}
                 </div>
 
+                <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+                    <div class="row justify-content-center">
+                        {% for post in posts %}
+                        {% ifequal post.field "Educational" %}
+                        <div class="col-4">
+                            <div class="wrapper">
+                                <div class="profile"
+                                    style="background: url('{{post.post_img.url}}');background-size: cover;">
+                                    <div class="overlay">
+                                        <div class="about d-flex flex-column">
+                                            <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+                                        </div>
+                                        <ul class="social-icons">
+                                            <li><i class="fab fa-facebook-f"></i></li>
+                                            <li><i class="fab fa-youtube"></i></li>
+                                            <li><i class="fab fa-twitter"></i></li>
+                                            <li><i class="fab fa-instagram"></i></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {%endifequal%}
+                        {%endfor%}
+                    </div>
+                </div>
 
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h2>2</h2>
-            </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
         </div>
-
-
-
-
-
     </div>
+
+
     <div class="col-2">
-        <h2>request
-        </h2>
+        <h4>Content of Influencer</h4>
+        {%for content in contents %}
+            <div class="card shadow p-3 mb-5 bg-white rounded text-center">
+                <h5>{{content.influencer}}</h5>
+                <small><strong>Date:04/10/2021</strong></small>
+                <div class="text-center">
+                    <button type="button" class="btn btn-secondary w-50" style="border-radius:50px ;">View</button>
+                </div>
+            </div>
+        {%endfor%}
     </div>
+
+
 </div>
-
-
-
 
 {% endblock%}
