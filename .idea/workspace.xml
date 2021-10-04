@@ -2,35 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4bf5d14-7b10-479d-8978-53b0cc7dc045" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/influencer_post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/templates/navbar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/media/profileImg/influencer/19101A0044_Assignment3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/media/profileImg/influencer/Group_150.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/add_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/add_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/authentication/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/authentication/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/authentication/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/authentication/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/19101A0044_Assignment1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Photo.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Photo_3AsYHXh.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_1J4ti4l.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_1suGHlT.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_79nXGpz.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_Em6pcVb.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_GgDIVDG.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_KZ4TSDi.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_NZsvPop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_Wh34F4K.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_oHw8tj3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_qYblpgm.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_xxC2Bw8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/media/profileImg/influencer/Resume_yhoesRf.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1633319587189</updated>
-      <workItem from="1633319595270" duration="9064000" />
+      <workItem from="1633319595270" duration="14550000" />
     </task>
     <servers />
   </component>

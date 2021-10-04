@@ -141,7 +141,7 @@
                     {% for post in posts|slice:":3" %}
                     
                     <div class="col-4">
-                        <a href="{% url 'posted' %}">
+                        <a href="{% url 'posted' post.id %}">
                         <div class="wrapper">
                             <div class="profile"
                                 style="background: url('{{post.post_img.url}}');background-size: cover;">
@@ -171,6 +171,7 @@
                     {% for post in posts %}
                     {% ifequal post.field "Fashion" %}
                     <div class="col-4">
+                        <a href="{% url 'posted' post.id %}">
                         <div class="wrapper">
                             <div class="profile"
                                 style="background: url('{{post.post_img.url}}');background-size: cover;">
@@ -187,6 +188,7 @@
                                 </div>
                             </div>
                         </div>
+                    </a>
                     </div>
                     {%endifequal%}
                     {%endfor%}
