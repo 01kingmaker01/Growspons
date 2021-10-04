@@ -1,10 +1,350 @@
+<!doctype html>
+{% load static %}
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Influencer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable = no">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{%static 'css/home.css'%}">
+
+    <title>Growspons</title>
+
+
+
 </head>
+
 <body>
-Influencer
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark grey-bgcolor">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Growspons</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
+                        <div class="mx-auto" style="width: 50%;">
+                            <form action="" method="GET">
+                                <div class="input-group" id="search-box">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary light-grey-bgcolor" id="search-btn"
+                                            type="submit" style="border-radius: 40px 0px 0px 40px;"><i
+                                                class="fas fa-search"></i></button>
+                                    </div>
+                                    <input type="text" name="to_search"
+                                        style="border: none;border-radius: 0px 40px 40px 0px;"
+                                        class="form-control light-grey-bgcolor" placeholder="Search for Profile"
+                                        aria-label="" aria-describedby="basic-addon1">
+    
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item px-5">
+                            <a class="nav-link active" aria-current="page" href="#">Chat</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a>
+                        </li>
+                        {% endif %}
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="hero-div center container">
+            <h2>Influence and Creativity, On Demand.</h2>
+            <p>From sponsored TikTok videos to Instagram posts, bring your content to life with the most innovative
+                creators
+                in the marketplace.</p>
+            <div class="hero-btns">
+                <button type="button" class="btn-trans">Get Started-It's Free</button>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div class="slidershow middle">
+        <div class="slides">
+
+            <input type="radio" name="r" id="r1" checked>
+
+            <input type="radio" name="r" id="r2">
+            <input type="radio" name="r" id="r3">
+            <input type="radio" name="r" id="r4">
+            <div class="slide s1">
+                <img src="{%static 'img/1.jpg'%}" alt="">
+                <div class="info">
+                    <a href="">
+                        <h7>Instagram</h7>
+                    </a>
+                    <p>Fitness | Fashion | Lifestyle!</p>
+                </div>
+
+            </div>
+            <div class="slide">
+                <img src="{%static 'img/11.jpg'%}" alt="">
+                <div class="info">
+                    <a href="">
+                        <h7>Instagram Reels</h7>
+                    </a>
+                    <p>Fashion | Beauty | Lifestyle!</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="{%static 'img/12.jpg'%}" alt="">
+                <div class="info">
+                    <a href="">
+                        <h7>MX-Takatak</h7>
+                    </a>
+                    <p>Surprise and Delight on TikTok! Food for the Soul</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="{%static 'img/13.jpg'%}" alt="">
+                <div class="info">
+                    <a href="">
+                        <h7>Facebook</h7>
+                    </a>
+                    <p>I Want Your Products In My Home!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <label for="r1" class="bar"></label>
+            <label for="r2" class="bar"></label>
+            <label for="r3" class="bar"></label>
+            <label for="r4" class="bar"></label>
+        </div>
+    </div>
+
+    <div class="catogary">
+        <h1>GrowSpons Categories</h1>
+    </div>
+    <div class="team-area">
+
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+
+            <div class="team-text">
+                <h5>Fashion</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Comedy</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Reaction</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Food</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Product Review</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Commentary</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Travel</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Educational</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Music</h5>
+
+            </div>
+        </div>
+        <div class="single-team" style="background:url(static/img/11.jpg); background-size: cover;">
+
+            <div class="team-text">
+                <h5>Gaming</h5>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <section class="detail">
+        <div class="container">
+            <h1 style="text-align: center; font-size: 25px; font-weight: 800; font-family: poppins;">How Growspons work
+                !
+            </h1>
+            <div class="row">
+                <div class="detail-item ">
+                    <h4>Create a Shake</h4>
+                    <div class="line"></div>
+                    <p>Your Shake is the service that you sell. Each Shake you create
+                        details delivery time, usage rights, price and more.</p>
+
+                </div>
+                <div class="detail-item">
+                    <h4>Accept Incoming Orders</h4>
+                    <div class="line"></div>
+                    <p>Once your Shake is approved, Buyers can view and purchase them in our public marketplace, or
+                        message you directly.</p>
+
+                </div>
+                <div class="detail-item">
+                    <h4>Work Your Magic</h4>
+                    <div class="line"></div>
+                    <p>After accepting an order, communicate with the buyer and deliver content through our guided chat
+                        experience.</p>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">Web design</a></li>
+                            <li><a href="#">Development</a></li>
+                            <li><a href="#">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>Company Name</h3>
+                        <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula
+                            rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum
+                            vel in justo.</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                                class="icon ion-social-twitter"></i></a><a href="#"><i
+                                class="icon ion-social-snapchat"></i></a><a href="#"><i
+                                class="icon ion-social-instagram"></i></a></div>
+                </div>
+
+            </div>
+        </footer>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if (this.scrollY > 95) {
+                    $('.navbar').addClass("fixed-top");
+                } else {
+                    $('.navbar').removeClass("fixed-top");
+                }
+            });
+        });
+
+        count = 1
+        function sliderSlide() {
+            count += 1
+            document.getElementById('r' + String(count)).checked = true
+            if (count === 4) {
+                count = 0
+            }
+        }
+
+        setInterval(() => {
+            sliderSlide()
+        }, 3000);
+
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
+
 </body>
+
 </html>
