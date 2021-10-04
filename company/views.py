@@ -9,6 +9,12 @@ group_cmp = 'Company'
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_cmp])
 def index(request):
-    posts=InfluencerPost.objects.all()[:3]
-    content={"posts":posts}
+    posts=InfluencerPost.objects.all()
+    contents=Content.objects.filter(is_accepted=False)
+    
+    content={"posts":posts,"contents":contents}
     return render(request,"company/index.html",content)
+
+def posted(request):
+    content={}
+    return render(request,"company/posted.html",content)
