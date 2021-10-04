@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 fields_list=sorted({
     ("Commentary","Commentary"),("ProductReview","ProductReview"),("Comedy","Comedy"),("Reaction","Reaction"),("Q&A","Q&A"),("Interview","Interview"),("Educational","Educational"),("Music","Music"),("Gaming","Gaming"),("Sport","Sport"),("Food","Food"),("Fashion","Fashion"),("Travel","Travel")
 })
+
+
+
 class Sponsor(models.Model):
     sponsor_id=models.OneToOneField(User,on_delete=models.CASCADE)
     field=models.CharField(max_length=50,choices=fields_list)
@@ -47,17 +50,19 @@ class Influencer(models.Model):
     IFSC_code=models.CharField(max_length=15,null=True, default='NA')
     account_no=models.CharField(max_length=15,null=True, default='NA')
 
-    facebook=models.URLField(null=True)
-    instagram=models.URLField(null=True)
-    follower=models.IntegerField()
-    twitter=models.URLField(null=True)
-    youtube=models.URLField(null=True)
-    subscriber=models.IntegerField()
-    other_link=models.URLField(null=True)
     is_verified=models.BooleanField(null=True, default=False)
 
     def __str__(self):
         return str(self.influencer_id.username)
+
+class InfSocialMedia(models.Model):
+    influencer = models.ForeignKey(Influencer, on_delete=models.CASCADE)
+    url = models.URLField(null=True)
+    social_media = models.CharField(max_length=100, null=True)
+    followers = models.CharField(max_length=30, null=True)
+
+    def __str__(self):
+        return str(self.influencer.influencer_id.username)
 
 
 class InfluencerPost(models.Model):
