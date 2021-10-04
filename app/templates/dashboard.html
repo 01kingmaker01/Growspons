@@ -137,11 +137,11 @@
     <div class="col-6">
 
         <div class="row justify-content-center">
-            {% for post in posts %}
+            {% for post in posts|slice:"0:3" %}
 
             {% if post.influencer.influencer_id != request.user.id %}
             <div class="col-4">
-                <a href="{% url 'posted' %}">
+                <a href="{% url 'posted' post.id %}">
                     <div class="wrapper">
                         <div class="profile" style="background: url('{{post.post_img.url}}');background-size: cover;">
                             <div class="overlay">
