@@ -1,4 +1,3 @@
-
 <!doctype html>
 {% load static %}
 
@@ -21,7 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{%static 'css/home.css'%}">
 
-    <title>Hello, world!</title>
+    <title>Growspons</title>
 
 
 
@@ -31,7 +30,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark grey-bgcolor">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">GrowSpon</a>
+                <a class="navbar-brand" href="#">Growspons</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -49,9 +48,15 @@
                         <li class="nav-item px-5">
                             <a class="nav-link active" aria-current="page" href="#">Chat</a>
                         </li>
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login/Logout</a>
+                            <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
                         </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a>
+                        </li>
+                        {% endif %}
 
                     </ul>
 
@@ -85,7 +90,9 @@
             <div class="slide s1">
                 <img src="{%static 'img/1.jpg'%}" alt="">
                 <div class="info">
-                    <a href=""><h7>Instagram</h7></a>
+                    <a href="">
+                        <h7>Instagram</h7>
+                    </a>
                     <p>Fitness | Fashion | Lifestyle!</p>
                 </div>
 
@@ -93,21 +100,27 @@
             <div class="slide">
                 <img src="{%static 'img/11.jpg'%}" alt="">
                 <div class="info">
-                    <a href=""><h7>Instagram Reels</h7></a>
+                    <a href="">
+                        <h7>Instagram Reels</h7>
+                    </a>
                     <p>Fashion | Beauty | Lifestyle!</p>
                 </div>
             </div>
             <div class="slide">
                 <img src="{%static 'img/12.jpg'%}" alt="">
                 <div class="info">
-                    <a href=""><h7>MX-Takatak</h7></a>
+                    <a href="">
+                        <h7>MX-Takatak</h7>
+                    </a>
                     <p>Surprise and Delight on TikTok! Food for the Soul</p>
                 </div>
             </div>
             <div class="slide">
                 <img src="{%static 'img/13.jpg'%}" alt="">
                 <div class="info">
-                    <a href=""><h7>Facebook</h7></a>
+                    <a href="">
+                        <h7>Facebook</h7>
+                    </a>
                     <p>I Want Your Products In My Home!</p>
                 </div>
             </div>
@@ -125,7 +138,7 @@
 
     <section class="detail">
         <div class="container">
-            <h1 style="text-align: center; font-size: 25px; font-weight: 800; font-family: poppins;">How GrowSpon work !
+            <h1 style="text-align: center; font-size: 25px; font-weight: 800; font-family: poppins;">How Growspons work !
             </h1>
             <div class="row">
                 <div class="detail-item ">
@@ -163,6 +176,11 @@
 
 
 
+
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
@@ -171,4 +189,3 @@
 </body>
 
 </html>
-

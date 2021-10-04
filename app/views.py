@@ -1,10 +1,12 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
 
-from .models import Influencer
+from .models import *
 from .utils import *
 from app.decorators import unauthenticated_user, allowed_users
 from app.forms import UserForm, InfluencerForm
@@ -25,8 +27,21 @@ def influencer_details(request):
         inf_form = InfluencerForm(request.POST, request.FILES)
         if inf_form.is_valid():
             inf_form.save()
+            social_media_list = json.loads(request.POST.get("social_media_list"))
+            influencer = Influencer.objects.get(influencer_id=request.user.id)
+            for i, data in social_media_list.items():
+                inf_social = InfSocialMedia.objects.create(
+                    influencer=influencer,
+                    url=data['url'],
+                    social_media=data['social_media'],
+                    followers=data['follower']
+                )
+                inf_social.save()
+
             return redirect('home')
-    content = {'inf_form':inf_form, 'user':User.objects.get(username=request.user.username)}
+        else:
+            return redirect('influencer_details')
+    content = {'inf_form':inf_form, 'user':User.objects.get(username=request.user.username), 'for_loop':[1, 2, 3, 4, 5, 6]}
     return render(request, 'add_details.html', content)
 
 
@@ -42,9 +57,9 @@ def loginHandle(request):
             login(request, user)
             request.session.set_expiry(60 * 60 * 24 * 7)
             if user.is_staff:
-                messages.success(request, 'welcome back :)')
+                # messages.success(request, 'welcome back :)')
                 return redirect('index')
-            messages.success(request, 'welcome back :)')
+            # messages.success(request, 'welcome back :)')
             return redirect('home')
 
         else:
@@ -117,5 +132,4 @@ def companySignupHandle(request):
 
 def handleLogout(request):
     logout(request)
-    messages.success(request, f"Good bye :)")
     return redirect('login')
