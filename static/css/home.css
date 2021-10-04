@@ -168,9 +168,9 @@ input[name="r"]{
     box-shadow: 0 10px 10px rgba(0,0,0,0.5);
     
 }
-.catogary{
-    margin-left: 35%;
-}
+/* .catogary{
+    margin-left: 3
+} */
 .catogary h1{
     font-weight: 400;
 }
