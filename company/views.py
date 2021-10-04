@@ -15,6 +15,7 @@ def index(request):
     content={"posts":posts,"contents":contents}
     return render(request,"company/index.html",content)
 
-def posted(request):
-    content={}
+def posted(request,id):
+    post=InfluencerPost.objects.get(id=id)
+    content={"post":post}
     return render(request,"company/posted.html",content)
