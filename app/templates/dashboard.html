@@ -7,11 +7,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 67vh;
+        height: 40vh;
 
     }
 
-    .profile {
+    .post {
         position: relative;
         width: 300px;
         height: 250px;
@@ -34,7 +34,7 @@
         border-radius: 6px
     }
 
-    .profile:hover .overlay {
+    .post:hover .overlay {
         opacity: 1
     }
 
@@ -45,7 +45,6 @@
         position: absolute;
         text-align: center;
         justify-content: center;
-        left: -15px
     }
 
     .social-icons li {
@@ -77,131 +76,163 @@
         flex: column
     }
 
-    tr,
-    th {
-        border: none;
+    .side-left-bar {
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        width: 20%;
+    }
+
+    .side-right-bar {
+        height: 100vh;
+        position: fixed;
+        right: 0;
+        width: 20%;
+    }
+
+
+    .menu-list li:hover {
+        background-color: #ebebeb;
+    }
+
+    .menu-list li a {
+        text-decoration: none;
+        color: #393E46;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .menu-list li {
+        padding: 1rem;
+    }
+
+    .content {
+        width: 56%;
+        position: absolute;
+        margin-left: 22%;
     }
 </style>
-<div class="row mt-4" style="overflow-x: hidden ; max-width: 100%;">
-    <div class="col-3 text-center">
-
-        <div class="card shadow-lg p-0 mb-2 mt-5 bg-body rounded ms-3" v>
-            <div class="card-body">
-                <div class="d-flex">
-                    <div class="me-3">
-                        <img src="{{influencer.profileImg.url}}" class="rounded float-start"
-                            style="height: 80px; width:80px;" alt="...">
-                    </div>
-                    <div>
-                        <p class="mb-1 mt-2"><strong>@{{influencer.influencer_id.username}}</strong></p>
-                        <p class="text-muted">{{influencer.field}}</p>
-                    </div>
-                </div>
+<div class="card side-left-bar mt-5">
+    <div class="card-body">
+        <div class="d-flex">
+            <div class="me-5">
+                <img src="{{influencer.profileImg.url}}" class="rounded float-start" style="height: 80px; width:80px;"
+                    alt="...">
+            </div>
+            <div class="d-flex flex-column text-center">
+                <p class="mb-1 mt-2"><strong>@{{influencer.influencer_id.username}}</strong></p>
+                <p class="text-muted">{{influencer.field}}</p>
             </div>
         </div>
-
-        <div class="card shadow-lg p-0 mb-5 mt-2 bg-body rounded ms-3" v>
-            <div class="card-body">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <th style="cursor: pointer;"><strong><i class="fas fa-home"></i> Home</strong></th>
-                        </tr>
-                        <tr>
-                            <th style="cursor: pointer;"><strong><i class="fab fa-facebook-messenger"></i>
-                                    Message</strong></th>
-                        </tr>
-                        <tr>
-                            <th style="cursor: pointer;"><strong><i class="fas fa-bookmark"></i> Save Post</strong></th>
-                        </tr>
-                        <tr>
-                            <th style="cursor: pointer;"><strong><i class="fas fa-money-bill-wave"></i>
-                                    Transaction</strong></th>
-                        </tr>
-                        <tr>
-                            <th style="cursor: pointer;"><strong><i class="fas fa-user-circle"></i> Profile</strong>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th style="cursor: pointer;"><a href="{% url 'logout' %}"><strong><i
-                                            class="fas fa-sign-out-alt"></i>Logout</strong></a></th>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <hr class="my-3" style="color: #e2e2e2;">
+        <div class="menu">
+            <ul class="menu-list ps-0" style="list-style: none;">
+                <li>
+                    <a href="">
+                        <i class="fas fa-home fa-lg"></i><strong>Home</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fab fa-facebook-messenger fa-lg"></i><strong>Message</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fas fa-bookmark fa-lg"></i><strong> Save Post</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fas fa-money-bill-wave fa-lg"></i><strong>Transaction</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fas fa-user-circle fa-lg"></i><strong> Profile</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt fa-lg"></i><strong>Logout</strong>
+                    </a>
+                </li>
+            </ul>
         </div>
-
     </div>
 
+</div>
 
-    <div class="col-6">
 
-        <div class="row justify-content-center">
-            {% for post in posts|slice:"0:3" %}
+<div class="content mt-5">
 
-            {% if post.influencer.influencer_id != request.user.id %}
-            <div class="col-4">
-                <a href="{% url 'posted' post.id %}">
-                    <div class="wrapper">
-                        <div class="profile" style="background: url('{{post.post_img.url}}');background-size: cover;">
-                            <div class="overlay">
-                                <div class="about d-flex flex-column">
-                                    <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-                                </div>
-                                <ul class="social-icons">
-                                    <li><i class="fab fa-facebook-f"></i></li>
-                                    <li><i class="fab fa-youtube"></i></li>
-                                    <li><i class="fab fa-twitter"></i></li>
-                                    <li><i class="fab fa-instagram"></i></li>
-                                </ul>
+    <div class="row justify-content-center">
+        {% for post in posts %}
+
+        {% if post.influencer.influencer_id != request.user.id %}
+        <div class="col-4">
+            <a href="{% url 'posted' post.id %}" style="text-decoration: none;">
+                <div class="wrapper">
+                    <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
+                        <div class="overlay">
+                            <div class="about d-flex flex-column">
+                                <h4>{{post.title}}</h4> <span>{{post.field}}</span>
                             </div>
+                            <ul class="social-icons">
+                                <li><i class="fab fa-facebook-f"></i></li>
+                                <li><i class="fab fa-youtube"></i></li>
+                                <li><i class="fab fa-twitter"></i></li>
+                                <li><i class="fab fa-instagram"></i></li>
+                            </ul>
                         </div>
-                    </div>
-                </a>
-            </div>
-            {% endif %}
-
-            {%endfor%}
-        </div>
-
-
-    </div>
-
-
-    <div class="col-3">
-        <div class="card shadow-lg p-0 mb-2 mt-5 bg-body rounded ms-3" v>
-            <div class="card-body">
-                <a href="{% url 'influencerPost' %}" class="btn btn-outline-primary w-100">
-                    Add Post
-                </a>
-            </div>
-        </div>
-        <div class="card shadow-lg p-0 mb-5 mt-2 bg-body rounded ms-3" v>
-            <div class="my-3 p-3 bg-body rounded shadow-sm">
-                <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
-                {% for inf in all_influencer %}
-                <div class="d-flex text-muted pt-3">
-                    <img src="{{inf.profileImg.url}}" class="me-3" width="32" height="32" alt="">
-
-                    <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-                        <div class="d-flex justify-content-between">
-                            <strong class="text-gray-dark">{{inf.influencer_id.username}}</strong>
-                            <a href="#">Follow</a>
-                        </div>
-                        <span class="d-block">@{{inf.influencer_id.username}}</span>
                     </div>
                 </div>
-                {% endfor %}
-               
-                <small class="d-block text-end mt-3">
-                    <a href="#">All suggestions</a>
-                </small>
-            </div>
+            </a>
         </div>
+        {% endif %}
 
+        {%endfor%}
     </div>
 
 
 </div>
+
+
+<div class="side-right-bar mt-5">
+    <div class="card">
+        <div class="card-body">
+            <a href="{% url 'influencerPost' %}" class="btn btn-outline-primary w-100">
+                Add Post
+            </a>
+
+            <hr class="my-3" style="color: #e2e2e2;">
+
+            <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
+            {% for inf in all_influencer %}
+            <div class="d-flex text-muted pt-3">
+
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100 d-flex justify-content-between">
+                    <div class="d-flex">
+                        <img src="{{inf.profileImg.url}}" class="me-3" width="32" height="32" alt="">
+                        <div>
+                            <strong class="text-gray-dark">{{inf.influencer_id.username}}</strong>
+                            <span class="d-block">@{{inf.influencer_id.username}}</span>
+                        </div>
+                    </div>
+                    <a href="#">Follow</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            <small class="d-block text-end mt-3">
+                <a href="#">All suggestions</a>
+            </small>
+        </div>
+    </div>
+
+</div>
+
+
+
 
 {% endblock%}

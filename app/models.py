@@ -12,7 +12,7 @@ fields_list=sorted({
 class Sponsor(models.Model):
     sponsor_id=models.OneToOneField(User,on_delete=models.CASCADE)
     field=models.CharField(max_length=50,choices=fields_list)
-    profile_img=models.ImageField(upload_to="media/profileImg/sponsor")
+    profile_img=models.ImageField(upload_to="profileImg/sponsor/")
     pancard=models.CharField(max_length=12,null=True)
     cin_no=models.CharField(max_length=21,null=True)
     mode_of_transaction=models.CharField(max_length=25,choices=sorted({
@@ -36,7 +36,7 @@ class Sponsor(models.Model):
 class Influencer(models.Model):
     influencer_id=models.OneToOneField(User,on_delete=models.CASCADE)
     field=models.CharField(max_length=50,choices=fields_list)
-    profileImg=models.ImageField(upload_to="media/profileImg/influencer")
+    profileImg=models.ImageField(upload_to="profileImg/influencer/")
     dob = models.DateField()
     phone_no=models.CharField(max_length=13)
     bio=models.TextField(max_length=300)
@@ -70,7 +70,7 @@ class InfluencerPost(models.Model):
     title=models.CharField(max_length=300)
     description=models.TextField(max_length=500,null=True)
     field=models.CharField(max_length=50,choices=fields_list)
-    post_img=models.ImageField(upload_to="media/profileImg/influencer")
+    post_img=models.ImageField(upload_to="post/influencer/")
 
     def __str__(self):
         return str(self.title)+","+str(self.influencer)
