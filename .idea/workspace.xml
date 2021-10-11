@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="f4bf5d14-7b10-479d-8978-53b0cc7dc045" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
 <<<<<<< HEAD
@@ -9,6 +10,13 @@
       <change beforePath="$PROJECT_DIR$/app/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard.html" afterDir="false" />
 =======
 >>>>>>> c6cc6c81815fc4a6e01a0c75552e4284a186c180
+=======
+    <list default="true" id="5328944d-d921-406b-820a-c498de9d7874" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templatetags/custom_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/templatetags/custom_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+>>>>>>> d9a31b55b9b027a8789ad470a742b58176e3d5b9
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,7 +27,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="1z1dWhBqyKuWBjO8slEPxKHQrmK" />
+=======
+  <component name="ProjectId" id="1zLQo269hYpt9sNxt2b0qlupv5A" />
+>>>>>>> d9a31b55b9b027a8789ad470a742b58176e3d5b9
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,6 +71,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="f4bf5d14-7b10-479d-8978-53b0cc7dc045" name="Default Changelist" comment="" />
       <created>1633319587189</created>
       <option name="number" value="Default" />
@@ -69,6 +82,14 @@
 =======
       <workItem from="1633319595270" duration="15502000" />
 >>>>>>> c6cc6c81815fc4a6e01a0c75552e4284a186c180
+=======
+      <changelist id="5328944d-d921-406b-820a-c498de9d7874" name="Default Changelist" comment="" />
+      <created>1633925093438</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1633925093438</updated>
+      <workItem from="1633925100447" duration="8710000" />
+>>>>>>> d9a31b55b9b027a8789ad470a742b58176e3d5b9
     </task>
     <servers />
   </component>

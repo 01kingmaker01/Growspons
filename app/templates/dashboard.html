@@ -1,5 +1,6 @@
 {% extends "base.html"%}
 {% load static %}
+{% load custom_tags %}
 {% block title%}Dashboard{% endblock%}
 {% block content %}
 <style>
@@ -66,6 +67,29 @@
         color: #000
     }
 
+    .savepost {
+        display: flex;
+        list-style: none;
+        top: 10px;
+        position: absolute;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .savepost li {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #eee;
+        color: #fff;
+        border-radius: 5px;
+        transition: all 1s
+    }
+
+    .savepost li:hover {
+        background: #fff;
+        color: #000
+    }
+
     .overlay .about {
         position: relative;
         justify-content: center;
@@ -110,6 +134,19 @@
         width: 56%;
         position: absolute;
         margin-left: 22%;
+    }
+
+    .filter-menu {
+        overflow-x: scroll;
+    }
+
+    .filter-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-menu p:hover {
+        color: #000;
+        font-weight: 500;
     }
 </style>
 <div class="card side-left-bar mt-5">
@@ -166,17 +203,41 @@
 
 <div class="content mt-5">
 
-    <div class="row justify-content-center">
-        {% for post in posts %}
+    <div class="upper-filter mt-5" style="display: grid;grid-template-columns: 1fr 4fr;text-align: center;">
+        <div>
+            <h5>Feeds</h5>
+        </div>
+        <div class="filter-menu d-flex justify-content-end">
+            <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id="all_data">All</p>
+            {% for field in nav_fields %}
+            <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id='{{field}}'>{{field}}</p>
+            {% endfor %}
 
-        {% if post.influencer.influencer_id != request.user.id %}
-        <div class="col-4">
-            <a href="{% url 'posted' post.id %}" style="text-decoration: none;">
+
+        </div>
+    </div>
+    <div class="influencer-data">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-grow text-dark ajaxLoader mt-5" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-3" id="filter_data_post">
+            {% for post in posts %}
+
+            {% if post.influencer.influencer_id != request.user.id %}
+            <div class="col-4">
+
                 <div class="wrapper">
                     <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
                         <div class="overlay">
+                            <ul class="savepost">
+                                <li><i class="fas fa-bookmark"></i></li>
+                            </ul>
                             <div class="about d-flex flex-column">
-                                <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+                                <a href="" style="text-decoration: none; color: white;text-align: color;">
+                                    <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+                                </a>
                             </div>
                             <ul class="social-icons">
                                 <li><i class="fab fa-facebook-f"></i></li>
@@ -187,52 +248,54 @@
                         </div>
                     </div>
                 </div>
-            </a>
-        </div>
-        {% endif %}
-
-        {%endfor%}
-    </div>
-
-
-</div>
-
-
-<div class="side-right-bar mt-5">
-    <div class="card">
-        <div class="card-body">
-            <a href="{% url 'influencerPost' %}" class="btn btn-outline-primary w-100">
-                Add Post
-            </a>
-
-            <hr class="my-3" style="color: #e2e2e2;">
-
-            <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
-            {% for inf in all_influencer %}
-            <div class="d-flex text-muted pt-3">
-
-                <div class="pb-3 mb-0 small lh-sm border-bottom w-100 d-flex justify-content-between">
-                    <div class="d-flex">
-                        <img src="{{inf.profileImg.url}}" class="me-3" width="32" height="32" alt="">
-                        <div>
-                            <strong class="text-gray-dark">{{inf.influencer_id.username}}</strong>
-                            <span class="d-block">@{{inf.influencer_id.username}}</span>
-                        </div>
-                    </div>
-                    <a href="#">Follow</a>
-                </div>
             </div>
-            {% endfor %}
+            {% endif %}
 
-            <small class="d-block text-end mt-3">
-                <a href="#">All suggestions</a>
-            </small>
+            {%endfor%}
         </div>
+    </div>
+
+
+</div>
+
+
+<div class="card side-right-bar mt-5">
+    <div class="card-body">
+        <a href="{% url 'influencerPost' %}" class="btn btn-outline-primary w-100 mt-3">
+            Add Post
+        </a>
+
+        <hr class="my-3" style="color: #e2e2e2;">
+
+        <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
+        {% for inf in all_influencer %}
+        <div class="d-flex text-muted pt-3">
+
+            <div class="pb-3 mb-0 small lh-sm border-bottom w-100 d-flex justify-content-between">
+                <div class="d-flex">
+                    <img src="{{inf.profileImg.url}}" class="me-3" width="32" height="32" alt="">
+                    <div>
+                        <strong class="text-gray-dark">{{inf.influencer_id.username}}</strong>
+                        <span class="d-block">@{{inf.influencer_id.username}}</span>
+                    </div>
+                </div>
+                <a href="#">Follow</a>
+            </div>
+        </div>
+        {% endfor %}
+
+        <small class="d-block text-end mt-3">
+            <a href="#">All suggestions</a>
+        </small>
     </div>
 
 </div>
 
 
-
+<script>
+    let nav_fields = {{ nav_fields| safe}};
+    const url_path = "{% url 'dashboardFilter' %}"
+</script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 
 {% endblock%}
