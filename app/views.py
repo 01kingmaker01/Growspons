@@ -18,7 +18,10 @@ def home(request):
     content = {}
     return render(request, 'home.html', content)
 
+def viewinf(request):
+    return render(request, 'views_influencer.html')
 
+    
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def influencer_details(request):
