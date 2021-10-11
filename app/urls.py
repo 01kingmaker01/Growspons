@@ -6,6 +6,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('influencer_details/', influencer_details, name="influencer_details"),
     path('dashboard/', dashboardInf, name="dashboardInf"),
+	path('dashboard/filter', dashboardFilter, name="dashboardFilter"),
     path('add_post/', influencerPost, name="influencerPost"),
 
 

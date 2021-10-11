@@ -4,7 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 
 from .models import *
 from .utils import *
@@ -50,10 +52,23 @@ def influencer_details(request):
 @allowed_users(allowed_roles=[group_inf])
 def dashboardInf(request):
     influencer = Influencer.objects.get(influencer_id=request.user.id)
-    posts = InfluencerPost.objects.all()
+    posts = InfluencerPost.objects.all().order_by("-id")
+    nav_field = [i.field for i in posts]
     all_influencer = Influencer.objects.all()[:3]
-    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer}
+    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer, 'nav_fields':list(set(nav_field))}
     return render(request, 'dashboard.html', content)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def dashboardFilter(request):
+    data = request.GET.get('object')
+    if data == 'ALL':
+        posts = InfluencerPost.objects.all().order_by('-id')
+    else:
+        posts = InfluencerPost.objects.filter(field=data).order_by('-id')
+    content = {'posts':posts}
+    template = render_to_string('ajax_temp/dashboard_filter.html', content)
+    return JsonResponse({'data': template})
 
 
 @login_required(login_url='login')
