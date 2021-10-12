@@ -55,7 +55,7 @@
         }
 
         .container .details h2 {
-            margin: 0;
+            margin-left: 15%;
             padding: 0;
             font-size: 2.4em;
             line-height: 1em;
@@ -86,7 +86,7 @@
             position: relative;
             display: flex;
             flex-wrap: wrap;
-            width: 70%;
+            width: 75%;
             margin-bottom: 50px;
         }
 
@@ -178,24 +178,22 @@
 
 <body>
 
+    {% for views in view_obj %}
+
 
     <section>
         <div class="container">
             <div class="imgBx">
-                <img src="https://public.lnks.co/jasper/sample/8679/attachment/41395/2cccb41f-f4c0-4062-9ce4-c11132eeded8.jpeg"
+                <img src="{{views.post_img.url}}"
                     alt="postImg">
             </div>
             <div class="details">
                 <div class="content">
-                    <h2>Jordan Proto-Lyte <br>
-                        <span>Instgram | marketplace</span>
+                    <h2>{{views.title}} <br>
+                        <span>{{views.influencer}}</span>
                     </h2>
                     <p>
-                        I typically post about lifestyle, health and wellness as well as fashion and parenting. I love
-                        travelling too. Most of my audience is females between 25-34. I've created content for Biscoff,
-                        Burt's Bees, and Dettol, facetheory, nestle, cherryzuk, village wax melts , mustela and many
-                        more.
-                        I'll highlight your product in an Instagram post on my account @busywittymama.
+                        {{views.description}}
                     </p>
                 </div>
             </div>
@@ -206,19 +204,18 @@
             <div class="detailview">
                 <div class="title">
                     <div class="static">
-                        <h2 style="color: #202020;font-weight: 500;">Instagram Story + Swipe Up</h2>
+                        <h2 style="color: #202020;font-weight: 500;">{{views.adfield}}</h2>
                         <!---->
                     </div>
                     <div class="yield">
 
-                        <div class="cost">3000 INR</div>
+                        <div class="cost">{{views.price}} INR</div>
 
                     </div>
                 </div>
                 <div class="breakdown">
                     <strong style="font-weight: 500;">Description</strong>
-                    <p>2-3 frame Instagram story with your product! I can discuss why I like the product, my favorite
-                        features, or show how I use it. I'll include a swipe up link and tag the brand.</p>
+                    <p>{{views.price_desc}}</p>
                     <hr role="presentation" data-uw-rm-sr="">
                     <strong style="font-weight: 500;">Features</strong>
                     <ul>
@@ -276,8 +273,8 @@
                                     </path>
                                 </g>
                             </svg>
-                            <strong>15</strong>
-                            <span>Days</span>
+                            <strong>{{views.day}}</strong>
+                            <span> Days</span>
                         </li>
                         <li>
                             <svg width="13" height="13" viewBox="0 0 13 13" xmlns="http://www.w3.org/2000/svg">
@@ -314,7 +311,7 @@
                         </div>
                         <div class="yield">
 
-                            <div class="cost">3000 INR</div>
+                            <div class="cost">{{views.price}} INR</div>
 
                         </div>
                         
@@ -328,6 +325,7 @@
 
         </div>
     </section>
+    {% endfor %}
 
 
     {% endblock%}

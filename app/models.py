@@ -1,10 +1,15 @@
 from django.db import models
+from .helpers import *
 from django.contrib.auth.models import User
 
 # In user Email id and User are same
 
 fields_list=sorted({
     ("Commentary","Commentary"),("ProductReview","ProductReview"),("Comedy","Comedy"),("Reaction","Reaction"),("Q&A","Q&A"),("Interview","Interview"),("Educational","Educational"),("Music","Music"),("Gaming","Gaming"),("Sport","Sport"),("Food","Food"),("Fashion","Fashion"),("Travel","Travel")
+})
+
+adfields_list=sorted({
+    ("Instgram Story + Swipe Up","Instgram Story + Swipe Up"),("Instgram Post","Instgram Post"),("Instgram Reels","Instgram Reels"),("Facebook Story + Swipe Up","Facebook Story + Swipe Up"),("Instgram Post","Instgram Post"),("Facebook Post","Facebook Post"),("YouTube Shorts + Swipe Up","YouTube Shorts + Swipe Up"), ("YouTube Video","YouTube Video"),("Tiktok Video", "Tiktok Video")
 })
 
 
@@ -68,12 +73,22 @@ class InfSocialMedia(models.Model):
 class InfluencerPost(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     title=models.CharField(max_length=300)
+    price=models.IntegerField(null=True, blank=True, default=0)
+    price_desc=models.TextField(max_length=500,null=True)
+    day=models.IntegerField(null=True, blank=True, default=5)
     description=models.TextField(max_length=500,null=True)
     field=models.CharField(max_length=50,choices=fields_list)
+    adfield=models.CharField(max_length=50,choices=adfields_list,null=True)
     post_img=models.ImageField(upload_to="post/influencer/")
+    slug = models.SlugField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
         return str(self.title)+","+str(self.influencer)
+
+
+    def save(self, *args , **kwargs):
+        self.slug = generate_slug(self.title)
+        super(InfluencerPost, self).save(*args , **kwargs)    
 
 class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)

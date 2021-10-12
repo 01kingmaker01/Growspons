@@ -20,8 +20,14 @@ def home(request):
     content = {}
     return render(request, 'home.html', content)
 
-def viewinf(request):
-    return render(request, 'views_influencer.html')
+def viewinf(request,slug):
+    context = {}
+    try:
+        view_obj = InfluencerPost.objects.filter(slug=slug)
+        context['view_obj'] = view_obj
+    except Exception as e:
+        print(e)
+    return render(request, 'views_influencer.html',context)
 
     
 @login_required(login_url='login')
@@ -58,7 +64,7 @@ def dashboardInf(request):
     posts = InfluencerPost.objects.all().order_by("-id")
     nav_field = [i.field for i in posts]
     all_influencer = Influencer.objects.all()[:3]
-    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer, 'nav_fields':list(set(nav_field))}
+    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer,'nav_fields':list(set(nav_field))}
     return render(request, 'dashboard.html', content)
 
 @login_required(login_url='login')
