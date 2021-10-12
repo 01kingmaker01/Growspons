@@ -230,24 +230,29 @@
 
                 <div class="wrapper">
                     <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
-                        <div class="overlay">
-                            <ul class="savepost">
-                                <li><i class="fas fa-bookmark"></i></li>
-                            </ul>
-                            <div class="about d-flex flex-column">
-                                <a href="" style="text-decoration: none; color: white;text-align: color;">
-                                    <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-                                </a>
+                        <a href="{% url 'viewinf' post.slug %}">
+                            <div class="overlay">
+                                <ul class="savepost">
+                                    <li><i class="fas fa-bookmark"></i></li>
+                                </ul>
+                                <div class="about d-flex flex-column">
+                                    <a href="{% url 'viewinf' post.slug %}" style="text-decoration: none; color: white;text-align: color;">
+                                        <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+                                    </a>
+                                </div>
+                                <ul class="social-icons">
+                                    <li><i class="fab fa-facebook-f"></i></li>
+                                    <li><i class="fab fa-youtube"></i></li>
+                                    <li><i class="fab fa-twitter"></i></li>
+                                    <li><i class="fab fa-instagram"></i></li>
+                                </ul>
                             </div>
-                            <ul class="social-icons">
-                                <li><i class="fab fa-facebook-f"></i></li>
-                                <li><i class="fab fa-youtube"></i></li>
-                                <li><i class="fab fa-twitter"></i></li>
-                                <li><i class="fab fa-instagram"></i></li>
-                            </ul>
-                        </div>
+                        </a>
                     </div>
                 </div>
+
+
+
             </div>
             {% endif %}
 
