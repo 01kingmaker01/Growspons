@@ -1,42 +1,40 @@
 {% load custom_tags %}
 {% for post in posts %}
 
-{% if post.influencer.influencer_id != request.user.id %}
-<div class="col-4">
+        {% if post.influencer.influencer_id != request.user.id %}
+        <div class="col-4">
 
-    <div class="wrapper">
-        <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
-            <div class="overlay">
+            <div class="wrapper">
+                <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
+                    <div class="overlay">
 
-                <form action="" method="post" id="save_post_form">
-                    {% csrf_token %}
-                    <span class="savepost">
-                        <button type="button" id="savepost-btn-{{post.id}}" onclick="savePost('{{post.id}}')"><i
-                                class="fas fa-bookmark"></i></button>
+                        <form action="" method="post" id="save_post_form">
+                            {% csrf_token %}
+                            <span class="savepost">
+                                <button type="button" id="savepost-btn-{{post.id}}" onclick="savePost('{{post.id}}')"><i
+                                        class="fas fa-bookmark"></i></button>
 
-                        <button type="button" id="remove-saved-btn-{{post.id}}" onclick="removeSavedPost('{{post.id}}')"
-                            style="color: black; background-color: white;"><i class="fas fa-bookmark"></i>
-                        </button>
-                    </span>
-                </form>
+                                <button type="button" id="remove-saved-btn-{{post.id}}"
+                                    onclick="removeSavedPost('{{post.id}}')"
+                                    style="color: black; background-color: white;"><i class="fas fa-bookmark"></i>
+                                </button>
+                            </span>
+                        </form>
+                    </div>
+                    <a href="{% url 'viewinf' post.id %}" class="about d-flex flex-column"
+                        style="text-decoration: none; color: white;margin-top: -58px;text-align: center;">
+                        <strong>@{{post.influencer.influencer_id.username}}</strong> <span>{{post.title}} | {{post.field}}</span>
 
-
-                <a href="{% url 'viewinf' post.id %}" class="about d-flex flex-column"
-                    style="text-decoration: none; color: white;text-align: color;">
-                    <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-
-                </a>
+                    </a>
+                </div>
             </div>
+
+
+
         </div>
-    </div>
+        {% endif %}
 
-
-
-</div>
-{% endif %}
-
-{%endfor%}
-
+        {%endfor%}
 <script>
     $(document).ready(function () {
         let fl_posts = {{ posts| post_id_list | safe}};
@@ -64,7 +62,7 @@
             })
 
         }
-    })
+    });
 
 
 </script>

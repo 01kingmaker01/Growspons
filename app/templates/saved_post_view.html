@@ -22,8 +22,8 @@
                         <form action="" method="post" id="save_post_form">
                             {% csrf_token %}
                             <span class="savepost">
-                                <button type="button" id="savepost-btn-{{post.post.id}}" onclick="savePost('{{post.post.id}}')"><i
-                                        class="fas fa-bookmark"></i></button>
+                                <button type="button" id="savepost-btn-{{post.post.id}}"
+                                    onclick="savePost('{{post.post.id}}')"><i class="fas fa-bookmark"></i></button>
 
                                 <button type="button" id="remove-saved-btn-{{post.post.id}}"
                                     onclick="removeSavedPost('{{post.post.id}}')"
@@ -33,12 +33,13 @@
                         </form>
 
 
-                        <a href="{% url 'viewinf' post.post.id %}" class="about d-flex flex-column"
-                            style="text-decoration: none; color: white;text-align: color;">
-                            <h4>{{post.post.title}}</h4> <span>{{post.post.field}}</span>
-
-                        </a>
                     </div>
+                    <a href="{% url 'viewinf' post.post.id %}" class="about d-flex flex-column"
+                        style="text-decoration: none; color: white;margin-top: -58px;text-align: center;">
+                        <strong>@{{post.post.influencer.influencer_id.username}}</strong> <span>{{post.post.title}} |
+                            {{post.post.field}}</span>
+
+                    </a>
                 </div>
             </div>
 
