@@ -10,6 +10,7 @@ urlpatterns = [
 	path('dashboard/filter', dashboardFilter, name="dashboardFilter"),
     path('add_post/', influencerPost, name="influencerPost"),
 	path('save_post/', save_post, name='save_post'),
+	path('saved_post_view/', saved_post_view, name='saved_post_view'),
 	path('remove_saved_post/', remove_saved_post, name='remove_saved_post'),
 
 

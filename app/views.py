@@ -96,6 +96,21 @@ def dashboardFilter(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
+def saved_post_view(request):
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    all_influencer = Influencer.objects.all()[:3]
+    saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id)).order_by("-id")
+    saved_post_ls = [i.post.id for i in saved_posts]
+    content = {'posts':saved_posts,
+               'saved_post_ls':saved_post_ls,
+               'influencer':influencer,
+               'all_influencer':all_influencer,
+               }
+    return render(request, 'saved_post_view.html', content)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
 def influencerPost(request):
     form = InluencerPostForm()
     if request.method == "POST":

@@ -1,274 +1,74 @@
-{% extends "base.html"%}
+{% extends "dashboard_base.html"%}
 {% load static %}
 {% load custom_tags %}
 {% block title%}Dashboard{% endblock%}
 {% block content %}
-<style>
-    .wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 40vh;
-
-    }
-
-    .post {
-        position: relative;
-        width: 300px;
-        height: 250px;
-        background-size: cover;
-        cursor: pointer;
-        border: 12px;
-        border-top-right-radius: 35px !important;
-        border-radius: 6px
-    }
-
-    .overlay {
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        border-radius: 12px;
-        opacity: 0;
-        transition: all 1s;
-        border-top-right-radius: 35px !important;
-        border-radius: 6px
-    }
-
-    .post:hover .overlay {
-        opacity: 1
-    }
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
 
 
 
-    .savepost {
-        display: flex;
-        top: 15px;
-        left: 20px;
-        position: absolute;
-        text-align: center;
-        justify-content: center;
-    }
-
-    .savepost button {
-        width: 25px;
-        height: 25px;
-        background: none;
-        cursor: pointer;
-        border: 1px solid #eee;
-        color: #fff;
-        border-radius: 5px;
-        transition: all 1s
-    }
-
-    .overlay .about {
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        top: 40%;
-        color: #fff;
-        flex: column
-    }
-
-    .side-left-bar {
-        height: 100vh;
-        position: fixed;
-        left: 0;
-        width: 20%;
-    }
-
-    .side-right-bar {
-        height: 100vh;
-        position: fixed;
-        right: 0;
-        width: 20%;
-    }
-
-
-    .menu-list li:hover {
-        background-color: #ebebeb;
-    }
-
-    .menu-list li a {
-        text-decoration: none;
-        color: #393E46;
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-    }
-
-    .menu-list li {
-        padding: 1rem;
-    }
-
-    .content {
-        width: 56%;
-        position: absolute;
-        margin-left: 22%;
-    }
-
-    .filter-menu {
-        overflow-x: scroll;
-    }
-
-    .filter-menu::-webkit-scrollbar {
-        display: none;
-    }
-
-    .filter-menu p:hover {
-        color: #000;
-        font-weight: 500;
-    }
-</style>
-<div class="card side-left-bar mt-5">
-    <div class="card-body">
-        <div class="d-flex">
-            <div class="me-5">
-                <img src="{{influencer.profileImg.url}}" class="rounded float-start" style="height: 80px; width:80px;"
-                    alt="...">
-            </div>
-            <div class="d-flex flex-column text-center">
-                <p class="mb-1 mt-2"><strong>@{{influencer.influencer_id.username}}</strong></p>
-                <p class="text-muted">{{influencer.field}}</p>
-            </div>
-        </div>
-        <hr class="my-3" style="color: #e2e2e2;">
-        <div class="menu">
-            <ul class="menu-list ps-0" style="list-style: none;">
-                <li>
-                    <a href="">
-                        <i class="fas fa-home fa-lg"></i><strong>Home</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="fab fa-facebook-messenger fa-lg"></i><strong>Message</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="fas fa-bookmark fa-lg"></i><strong> Save Post</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="fas fa-money-bill-wave fa-lg"></i><strong>Transaction</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="fas fa-user-circle fa-lg"></i><strong> Profile</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'logout' %}">
-                        <i class="fas fa-sign-out-alt fa-lg"></i><strong>Logout</strong>
-                    </a>
-                </li>
-            </ul>
-        </div>
+<div class="upper-filter mt-5" style="display: grid;grid-template-columns: 1fr 4fr;text-align: center;">
+    <div>
+        <h5>Feeds</h5>
     </div>
-
-</div>
-
-
-<div class="content mt-5">
-
-    <div class="upper-filter mt-5" style="display: grid;grid-template-columns: 1fr 4fr;text-align: center;">
-        <div>
-            <h5>Feeds</h5>
-        </div>
-        <div class="filter-menu d-flex justify-content-end">
-            <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id="all_data">All</p>
-            {% for field in nav_fields %}
-            <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id='{{field}}'>{{field}}</p>
-            {% endfor %}
-
-
-        </div>
-    </div>
-    <div class="influencer-data">
-        <div class="d-flex justify-content-center">
-            <div class="spinner-grow text-dark ajaxLoader mt-5" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-        <div class="row justify-content-center mt-3" id="filter_data_post">
-            {% for post in posts %}
-
-            {% if post.influencer.influencer_id != request.user.id %}
-            <div class="col-4">
-
-                <div class="wrapper">
-                    <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
-                        <div class="overlay">
-
-                            <form action="" method="post" id="save_post_form">
-                                {% csrf_token %}
-                                <span class="savepost">
-                                    <button type="button" id="savepost-btn-{{post.id}}"
-                                        onclick="savePost('{{post.id}}')"><i class="fas fa-bookmark"></i></button>
-
-                                    <button type="button" id="remove-saved-btn-{{post.id}}"
-                                        onclick="removeSavedPost('{{post.id}}')"
-                                        style="color: black; background-color: white;"><i class="fas fa-bookmark"></i>
-                                    </button>
-                                </span>
-                            </form>
-
-
-                            <a href="{% url 'viewinf' post.id %}" class="about d-flex flex-column"
-                                style="text-decoration: none; color: white;text-align: color;">
-                                <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-            {% endif %}
-
-            {%endfor%}
-        </div>
-    </div>
-
-
-</div>
-
-
-<div class="card side-right-bar mt-5">
-    <div class="card-body">
-        <a href="{% url 'influencerPost' %}" class="btn btn-outline-primary w-100 mt-3">
-            Add Post
-        </a>
-
-        <hr class="my-3" style="color: #e2e2e2;">
-
-        <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
-        {% for inf in all_influencer %}
-        <div class="d-flex text-muted pt-3">
-
-            <div class="pb-3 mb-0 small lh-sm border-bottom w-100 d-flex justify-content-between">
-                <div class="d-flex">
-                    <img src="{{inf.profileImg.url}}" class="me-3" width="32" height="32" alt="">
-                    <div>
-                        <strong class="text-gray-dark">{{inf.influencer_id.username}}</strong>
-                        <span class="d-block">@{{inf.influencer_id.username}}</span>
-                    </div>
-                </div>
-                <a href="#">Follow</a>
-            </div>
-        </div>
+    <div class="filter-menu d-flex justify-content-end">
+        <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id="all_data">All</p>
+        {% for field in nav_fields %}
+        <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id='{{field}}'>{{field}}</p>
         {% endfor %}
 
-        <small class="d-block text-end mt-3">
-            <a href="#">All suggestions</a>
-        </small>
-    </div>
 
+    </div>
 </div>
+<div class="influencer-data">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-grow text-dark ajaxLoader mt-5" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3" id="filter_data_post">
+        {% for post in posts %}
+
+        {% if post.influencer.influencer_id != request.user.id %}
+        <div class="col-4">
+
+            <div class="wrapper">
+                <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
+                    <div class="overlay">
+
+                        <form action="" method="post" id="save_post_form">
+                            {% csrf_token %}
+                            <span class="savepost">
+                                <button type="button" id="savepost-btn-{{post.id}}"
+                                    onclick="savePost('{{post.id}}')"><i class="fas fa-bookmark"></i></button>
+
+                                <button type="button" id="remove-saved-btn-{{post.id}}"
+                                    onclick="removeSavedPost('{{post.id}}')"
+                                    style="color: black; background-color: white;"><i class="fas fa-bookmark"></i>
+                                </button>
+                            </span>
+                        </form>
+
+
+                        <a href="{% url 'viewinf' post.id %}" class="about d-flex flex-column"
+                            style="text-decoration: none; color: white;text-align: color;">
+                            <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        {% endif %}
+
+        {%endfor%}
+    </div>
+</div>
+
+
 
 
 <script>
