@@ -20,10 +20,12 @@ def home(request):
     content = {}
     return render(request, 'home.html', content)
 
-def viewinf(request,slug):
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def viewinf(request,pk):
     context = {}
     try:
-        view_obj = InfluencerPost.objects.filter(slug=slug)
+        view_obj = InfluencerPost.objects.filter(id=pk)
         context['view_obj'] = view_obj
     except Exception as e:
         print(e)
@@ -64,8 +66,16 @@ def dashboardInf(request):
     posts = InfluencerPost.objects.all().order_by("-id")
     nav_field = [i.field for i in posts]
     all_influencer = Influencer.objects.all()[:3]
-    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer,'nav_fields':list(set(nav_field))}
+    saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id))
+    saved_post_ls = [i.post.id for i in saved_posts]
+    content = {'influencer':influencer,
+               'posts':posts,
+               'all_influencer':all_influencer,
+               'nav_fields':list(set(nav_field)),
+               'saved_post_ls':saved_post_ls
+               }
     return render(request, 'dashboard.html', content)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
@@ -75,7 +85,11 @@ def dashboardFilter(request):
         posts = InfluencerPost.objects.all().order_by('-id')
     else:
         posts = InfluencerPost.objects.filter(field=data).order_by('-id')
-    content = {'posts':posts}
+    saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id))
+    saved_post_ls = [i.post.id for i in saved_posts]
+    content = {'posts':posts,
+               'saved_post_ls':saved_post_ls
+               }
     template = render_to_string('ajax_temp/dashboard_filter.html', content)
     return JsonResponse({'data': template})
 
@@ -95,6 +109,30 @@ def influencerPost(request):
     content = {'form':form,'user':Influencer.objects.get(influencer_id=request.user.id),}
     return render(request, 'influencer_post.html', content)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def save_post(request):
+    data = json.loads(request.body)
+    p_id = data['save_post_details']['post_id']
+    post = InfluencerPost.objects.get(id=p_id)
+    InfSavePost.objects.create(
+        post=post,
+        who_saved=Influencer.objects.get(influencer_id=request.user.id)
+    )
+    return JsonResponse('Done', safe=False)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def remove_saved_post(request):
+    data = json.loads(request.body)
+    p_id = data['save_post_details']['post_id']
+    post = InfluencerPost.objects.get(id=p_id)
+    InfSavePost.objects.filter(
+        post=post,
+        who_saved=Influencer.objects.get(influencer_id=request.user.id)
+    ).delete()
+    return JsonResponse('Done', safe=False)
 
 
 

@@ -4,11 +4,13 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
-	path('view/<slug>', viewinf, name='viewinf'),
+	path('view/<int:pk>', viewinf, name='viewinf'),
     path('influencer_details/', influencer_details, name="influencer_details"),
     path('dashboard/', dashboardInf, name="dashboardInf"),
 	path('dashboard/filter', dashboardFilter, name="dashboardFilter"),
     path('add_post/', influencerPost, name="influencerPost"),
+	path('save_post/', save_post, name='save_post'),
+	path('remove_saved_post/', remove_saved_post, name='remove_saved_post'),
 
 
     path('login/', loginHandle, name='login'),

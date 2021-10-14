@@ -80,15 +80,19 @@ class InfluencerPost(models.Model):
     field=models.CharField(max_length=50,choices=fields_list)
     adfield=models.CharField(max_length=50,choices=adfields_list,null=True)
     post_img=models.ImageField(upload_to="post/influencer/")
-    slug = models.SlugField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
         return str(self.title)+","+str(self.influencer)
 
 
-    def save(self, *args , **kwargs):
-        self.slug = generate_slug(self.title)
-        super(InfluencerPost, self).save(*args , **kwargs)    
+class InfSavePost(models.Model):
+    who_saved = models.ForeignKey(Influencer, on_delete=models.CASCADE)
+    post = models.ForeignKey(InfluencerPost, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.post_id)
+
 
 class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)

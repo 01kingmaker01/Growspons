@@ -28,7 +28,6 @@
         height: 100%;
         background: rgba(0, 0, 0, 0.8);
         border-radius: 12px;
-        cursor: pointer;
         opacity: 0;
         transition: all 1s;
         border-top-right-radius: 35px !important;
@@ -39,55 +38,26 @@
         opacity: 1
     }
 
-    .social-icons {
-        display: flex;
-        list-style: none;
-        bottom: 10px;
-        position: absolute;
-        text-align: center;
-        justify-content: center;
-    }
 
-    .social-icons li {
-        width: 25px;
-        height: 25px;
-        border: 1px solid #eee;
-        padding: 20px;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        border-radius: 5px;
-        transition: all 1s
-    }
-
-    .social-icons li:hover {
-        background: #fff;
-        color: #000
-    }
 
     .savepost {
         display: flex;
-        list-style: none;
-        top: 10px;
+        top: 15px;
+        left: 20px;
         position: absolute;
         text-align: center;
         justify-content: center;
     }
 
-    .savepost li {
+    .savepost button {
         width: 25px;
         height: 25px;
+        background: none;
+        cursor: pointer;
         border: 1px solid #eee;
         color: #fff;
         border-radius: 5px;
         transition: all 1s
-    }
-
-    .savepost li:hover {
-        background: #fff;
-        color: #000
     }
 
     .overlay .about {
@@ -231,21 +201,26 @@
                 <div class="wrapper">
                     <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
                         <div class="overlay">
-                            <ul class="savepost">
-                                <li><i class="fas fa-bookmark"></i></li>
-                            </ul>
-                            <a href="{% url 'viewinf' post.slug %}"
+
+                            <form action="" method="post" id="save_post_form">
+                                {% csrf_token %}
+                                <span class="savepost">
+                                    <button type="button" id="savepost-btn-{{post.id}}"
+                                        onclick="savePost('{{post.id}}')"><i class="fas fa-bookmark"></i></button>
+
+                                    <button type="button" id="remove-saved-btn-{{post.id}}"
+                                        onclick="removeSavedPost('{{post.id}}')"
+                                        style="color: black; background-color: white;"><i class="fas fa-bookmark"></i>
+                                    </button>
+                                </span>
+                            </form>
+
+
+                            <a href="{% url 'viewinf' post.id %}" class="about d-flex flex-column"
                                 style="text-decoration: none; color: white;text-align: color;">
-                                <div class="about d-flex flex-column">
-                                    <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-                                </div>
+                                <h4>{{post.title}}</h4> <span>{{post.field}}</span>
+
                             </a>
-                            <ul class="social-icons">
-                                <li><i class="fab fa-facebook-f"></i></li>
-                                <li><i class="fab fa-youtube"></i></li>
-                                <li><i class="fab fa-twitter"></i></li>
-                                <li><i class="fab fa-instagram"></i></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -298,7 +273,10 @@
 
 <script>
     let nav_fields = {{ nav_fields| safe}};
-    const url_path = "{% url 'dashboardFilter' %}"
+    const url_path = "{% url 'dashboardFilter' %}";
+    let saved_post_list = {{ saved_post_ls }};
+    let posts = {{ posts| post_id_list | safe}};
+    // console.log(saved_post_list)
 </script>
 <script src="{% static 'js/dashboard.js' %}"></script>
 
