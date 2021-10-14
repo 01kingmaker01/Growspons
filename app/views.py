@@ -62,18 +62,16 @@ def influencer_details(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def dashboardInf(request):
-    influencer = Influencer.objects.get(influencer_id=request.user.id)
     posts = InfluencerPost.objects.all().order_by("-id")
     nav_field = [i.field for i in posts]
-    all_influencer = Influencer.objects.all()[:3]
     saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id))
     saved_post_ls = [i.post.id for i in saved_posts]
-    content = {'influencer':influencer,
+    content = {
                'posts':posts,
-               'all_influencer':all_influencer,
                'nav_fields':list(set(nav_field)),
                'saved_post_ls':saved_post_ls
                }
+    context_addition(request, content)
     return render(request, 'dashboard.html', content)
 
 
@@ -97,15 +95,13 @@ def dashboardFilter(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def saved_post_view(request):
-    influencer = Influencer.objects.get(influencer_id=request.user.id)
-    all_influencer = Influencer.objects.all()[:3]
     saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id)).order_by("-id")
     saved_post_ls = [i.post.id for i in saved_posts]
     content = {'posts':saved_posts,
                'saved_post_ls':saved_post_ls,
-               'influencer':influencer,
-               'all_influencer':all_influencer,
+               
                }
+    context_addition(request, content)
     return render(request, 'saved_post_view.html', content)
 
 
@@ -122,6 +118,7 @@ def influencerPost(request):
             return redirect('dashboardInf')
 
     content = {'form':form,'user':Influencer.objects.get(influencer_id=request.user.id),}
+    context_addition(request, content)
     return render(request, 'influencer_post.html', content)
 
 @login_required(login_url='login')
