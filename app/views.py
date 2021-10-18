@@ -23,13 +23,14 @@ def home(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def viewinf(request,pk):
-    context = {}
+    content = {}
     try:
         view_obj = InfluencerPost.objects.filter(id=pk)
-        context['view_obj'] = view_obj
+        content['view_obj'] = view_obj
     except Exception as e:
         print(e)
-    return render(request, 'views_influencer.html',context)
+    context_addition(request, content)
+    return render(request, 'views_influencer.html',content)
 
     
 @login_required(login_url='login')
@@ -148,10 +149,11 @@ def remove_saved_post(request):
 
 
 
-
-
-
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def profile(request):
+    content = {}
+    return render(request, 'profile.html', content)
 
 
 

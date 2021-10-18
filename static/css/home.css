@@ -41,7 +41,8 @@ section{
     margin-top: 2.1rem;
     
 }
-.hero-btns button{
+.hero-btns a{
+    text-decoration: none;
     border-radius: 100px;
     background-color: #393E46;
     border-color: #00ADB5;
@@ -57,6 +58,8 @@ section{
     
 }
 .btn-trans:hover{
+    color: white;
+    box-shadow:0 10px 10px rgba(0,0,0,0.5) ;
     background: #00ADB5;
 }
 

@@ -8,7 +8,7 @@ fields_list=sorted({
 })
 
 adfields_list=sorted({
-    ("Instgram Story + Swipe Up","Instgram Story + Swipe Up"),("Instgram Post","Instgram Post"),("Instgram Reels","Instgram Reels"),("Facebook Story + Swipe Up","Facebook Story + Swipe Up"),("Instgram Post","Instgram Post"),("Facebook Post","Facebook Post"),("YouTube Shorts + Swipe Up","YouTube Shorts + Swipe Up"), ("YouTube Video","YouTube Video"),("Tiktok Video", "Tiktok Video")
+    ("Instagram Story + Swipe Up","Instagram Story + Swipe Up"),("Instagram Post","Instagram Post"),("Instagram Reels","Instagram Reels"),("Facebook Story + Swipe Up","Facebook Story + Swipe Up"),("Instagram Post","Instagram Post"),("Facebook Post","Facebook Post"),("YouTube Shorts + Swipe Up","YouTube Shorts + Swipe Up"), ("YouTube Video","YouTube Video"),("Tiktok Video", "Tiktok Video")
 })
 
 
