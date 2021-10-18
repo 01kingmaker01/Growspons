@@ -30,9 +30,16 @@
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
                 {% if request.user.is_authenticated %}
+
+                {% if request.user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'dashboardCmp' %}">Dashboard</a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'dashboardInf' %}">Dashboard</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
                 </li>
