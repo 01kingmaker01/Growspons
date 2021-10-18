@@ -1,5 +1,4 @@
 from django.db import models
-from .helpers import *
 from django.contrib.auth.models import User
 
 # In user Email id and User are same
