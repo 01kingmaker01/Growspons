@@ -96,23 +96,23 @@ SignUp
         left: 50%;
     }
 
-    section .content {
+    section .nav-box {
         display: none;
         background: #fff;
     }
 
-    #influencer:checked~section .content-1,
-    #company:checked~section .content-2 {
+    #influencer:checked~section .nav-box-1,
+    #company:checked~section .nav-box-2 {
         display: block;
     }
 
-    section .content .title {
+    section .nav-box .title {
         font-size: 21px;
         font-weight: 500;
         margin: 30px 0 10px 0;
     }
 
-    section .content p {
+    section .nav-box p {
         text-align: justify;
     }
 </style>
@@ -139,7 +139,7 @@ SignUp
                 </div>
                 {% endfor %}
                 {% endif %}
-                <div class="content content-1">
+                <div class="nav-box nav-box-1">
                     <form action="{% url 'signUp' %}" method="post" autocomplete="on">
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-3 m-auto">
@@ -181,7 +181,7 @@ SignUp
                         </div>
                     </form>
                 </div>
-                <div class="content content-2">
+                <div class="nav-box nav-box-2">
                     <form action="{% url 'companySignupHandle' %}" method="post" autocomplete="on">
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-5 m-auto">
