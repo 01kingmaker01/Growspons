@@ -1,5 +1,4 @@
 from django.db import models
-from .helpers import *
 from django.contrib.auth.models import User
 
 # In user Email id and User are same
@@ -93,6 +92,13 @@ class InfSavePost(models.Model):
     def __str__(self):
         return str(self.post_id)
 
+class CmpSavePost(models.Model):
+    who_saved = models.ForeignKey(User, on_delete=models.CASCADE)    # later change to Sponser
+    post = models.ForeignKey(InfluencerPost, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.post_id)
 
 class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)

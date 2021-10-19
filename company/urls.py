@@ -2,6 +2,5 @@ from . import views
 from django.urls import path
 
 urlpatterns = [
-    path('',views.index, name='index'),
-    path("posted/<int:id>",views.posted,name="posted")
-]
+    path('',views.dashboardCmp, name='dashboardCmp'),
+	path('dashboard/filter', views.dashboardFilter, name="dashboardFilterCmp"),]

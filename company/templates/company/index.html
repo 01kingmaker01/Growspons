@@ -1,272 +1,174 @@
 {% extends "company/base.html"%}
 {% load static %}
-{% block title%}Company{% endblock%}
+{% load custom_tags %}
+{% block title%}Dashboard{% endblock%}
 {% block content %}
-<style>
-    .wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 67vh;
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
 
-    }
 
-    .profile {
-        position: relative;
-        width: 300px;
-        height: 350px;
-        background-size: cover;
-        cursor: pointer;
-        border: 12px;
-        border-top-right-radius: 35px !important;
-        border-radius: 6px
-    }
 
-    .overlay {
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        border-radius: 12px;
-        cursor: pointer;
-        opacity: 0;
-        transition: all 1s;
-        border-top-right-radius: 35px !important;
-        border-radius: 6px
-    }
+<div class="upper-filter mt-5" style="display: grid;grid-template-columns: 1fr 4fr;text-align: center;">
+    <div>
+        <h5>Feeds</h5>
+    </div>
+    <div class="filter-menu d-flex justify-content-end">
+        <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id="all_data">All</p>
+        {% for field in nav_fields %}
+        <p class="me-3 grey-color" style="cursor: pointer;text-decoration: none;" id='{{field}}'>{{field}}</p>
+        {% endfor %}
 
-    .profile:hover .overlay {
-        opacity: 1
-    }
-
-    .social-icons {
-        display: flex;
-        list-style: none;
-        bottom: 10px;
-        position: absolute;
-        text-align: center;
-        justify-content: center;
-        left: 22px
-    }
-
-    .social-icons li {
-        width: 25px;
-        height: 25px;
-        border: 1px solid #eee;
-        padding: 20px;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff;
-        border-radius: 5px;
-        transition: all 1s
-    }
-
-    .social-icons li:hover {
-        background: #fff;
-        color: #000
-    }
-
-    .overlay .about {
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        top: 40%;
-        color: #fff;
-        flex: column
-    }
-    
-</style>
-<div class="row mt-4" style="overflow-x: hidden ; max-width: 100%;">
-    <div class="col-2 text-center">
-        
-        <div class="card shadow-lg p-0 mb-5 bg-body rounded ms-3">
-            <div class="card-body">
-                <table class="table table-hover">
-                    <tr>
-                        <th><strong> MENU</strong></th>
-                    </tr>
-                    <tbody>
-                        <tr>
-                            <th><strong><i class="fas fa-home"></i> Home</strong></th>
-                        </tr>
-                        <tr>
-                            <th><strong><i class="fab fa-facebook-messenger"></i> Message</strong></th>
-                        </tr>
-                        <tr>
-                            <th><strong><i class="fas fa-bookmark"></i> Save Influencer</strong></th>
-                        </tr>
-                        <tr>
-                            <th><strong><i class="fas fa-money-bill-wave"></i> Transaction</strong></th>
-                        </tr>
-                        <tr>
-                            <th><strong><i class="fas fa-user-circle"></i> Profile</strong></th>
-                        </tr>
-                        <tr>
-                            <th><a href="{% url 'logout' %}"><strong><i
-                                            class="fas fa-sign-out-alt"></i>Logout</strong></a></th>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
     </div>
-    
-    
-    <div class="col-8">
-        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
-                    role="tab" aria-controls="home" aria-selected="true">All Post</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
-                    role="tab" aria-controls="profile" aria-selected="false">Fashion</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
-                    role="tab" aria-controls="contact" aria-selected="false">Travel</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education"
-                    type="button" role="tab" aria-controls="education" aria-selected="false">Educational</button>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-                <div class="row justify-content-center">
-                    {% for post in posts|slice:":3" %}
-                    
-                    <div class="col-4">
-                        <a href="{% url 'posted' post.id %}">
-                        <div class="wrapper">
-                            <div class="profile"
-                                style="background: url('{{post.post_img.url}}');background-size: cover;">
-                                <div class="overlay">
-                                    <div class="about d-flex flex-column">
-                                        <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-                                    </div>
-                                    <ul class="social-icons">
-                                        <li><i class="fab fa-facebook-f"></i></li>
-                                        <li><i class="fab fa-youtube"></i></li>
-                                        <li><i class="fab fa-twitter"></i></li>
-                                        <li><i class="fab fa-instagram"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    </div>
-                    
-                    {%endfor%}
-                </div>
-
-
-            </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="row justify-content-center">
-                    {% for post in posts %}
-                    {% ifequal post.field "Fashion" %}
-                    <div class="col-4">
-                        <a href="{% url 'posted' post.id %}">
-                        <div class="wrapper">
-                            <div class="profile"
-                                style="background: url('{{post.post_img.url}}');background-size: cover;">
-                                <div class="overlay">
-                                    <div class="about d-flex flex-column">
-                                        <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-                                    </div>
-                                    <ul class="social-icons">
-                                        <li><i class="fab fa-facebook-f"></i></li>
-                                        <li><i class="fab fa-youtube"></i></li>
-                                        <li><i class="fab fa-twitter"></i></li>
-                                        <li><i class="fab fa-instagram"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    </div>
-                    {%endifequal%}
-                    {%endfor%}
-                </div>
-
-            </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="row justify-content-center">
-                    {% for post in posts %}
-                    {% ifequal post.field "Travel" %}
-                    <div class="col-4">
-                        <div class="wrapper">
-                            <div class="profile"
-                                style="background: url('{{post.post_img.url}}');background-size: cover;">
-                                <div class="overlay">
-                                    <div class="about d-flex flex-column">
-                                        <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-                                    </div>
-                                    <ul class="social-icons">
-                                        <li><i class="fab fa-facebook-f"></i></li>
-                                        <li><i class="fab fa-youtube"></i></li>
-                                        <li><i class="fab fa-twitter"></i></li>
-                                        <li><i class="fab fa-instagram"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {%endifequal%}
-                    {%endfor%}
-                </div>
-
-                <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
-                    <div class="row justify-content-center">
-                        {% for post in posts %}
-                        {% ifequal post.field "Educational" %}
-                        <div class="col-4">
-                            <div class="wrapper">
-                                <div class="profile"
-                                    style="background: url('{{post.post_img.url}}');background-size: cover;">
-                                    <div class="overlay">
-                                        <div class="about d-flex flex-column">
-                                            <h4>{{post.title}}</h4> <span>{{post.field}}</span>
-                                        </div>
-                                        <ul class="social-icons">
-                                            <li><i class="fab fa-facebook-f"></i></li>
-                                            <li><i class="fab fa-youtube"></i></li>
-                                            <li><i class="fab fa-twitter"></i></li>
-                                            <li><i class="fab fa-instagram"></i></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {%endifequal%}
-                        {%endfor%}
-                    </div>
-                </div>
-
-            </div>
+</div>
+<div class="influencer-data">
+    <div class="d-flex justify-content-center">
+        <div class="spinner-grow text-dark ajaxLoader mt-5" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
     </div>
+    <div class="row justify-content-center mt-3" id="filter_data_post">
+        {% for post in posts %}
 
+        {% if post.influencer.influencer_id != request.user.id %}
+        <div class="col-4">
 
-    <div class="col-2">
-        <h4>Content of Influencer</h4>
-        {%for content in contents %}
-            <div class="card shadow p-3 mb-5 bg-white rounded text-center">
-                <h5>{{content.influencer}}</h5>
-                <small><strong>Date:04/10/2021</strong></small>
-                <div class="text-center">
-                    <button type="button" class="btn btn-secondary w-50" style="border-radius:50px ;">View</button>
+            <div class="wrapper">
+                <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
+                    <div class="overlay">
+
+                        <form action="" method="post" id="save_post_form">
+                            {% csrf_token %}
+                            <span class="savepost">
+                                <button type="button" id="savepost-btn-{{post.id}}" onclick="savePost('{{post.id}}')"><i
+                                        class="fas fa-bookmark"></i></button>
+
+                                <button type="button" id="remove-saved-btn-{{post.id}}"
+                                    onclick="removeSavedPost('{{post.id}}')"
+                                    style="color: black; background-color: white;"><i class="fas fa-bookmark"></i>
+                                </button>
+                            </span>
+                        </form>
+                    </div>
+                    <a href="{% url 'viewinf' post.id %}" class="about d-flex flex-column"
+                        style="text-decoration: none; color: white;margin-top: -58px;text-align: center;">
+                        <strong>@{{post.influencer.influencer_id.username}}</strong> <span>{{post.title}} |
+                            {{post.field}}</span>
+
+                    </a>
                 </div>
             </div>
+
+
+
+        </div>
+        {% endif %}
+
         {%endfor%}
     </div>
-
-
 </div>
+
+
+
+
+<script>
+    let nav_fields = {{ nav_fields| safe}};
+    const url_path = "{% url 'dashboardFilterCmp' %}";
+    let saved_post_list = {{ saved_post_ls }};
+    let posts = {{ posts| post_id_list | safe}};
+    // console.log(saved_post_list)
+    var filter_obj = {
+        object: "",
+    };
+    const ajax_method = {
+        url: url_path,
+        type: "GET",
+        data: filter_obj,
+        beforeSend: function () {
+            $("#filter_data_post").hide();
+            $(".ajaxLoader").show();
+        },
+        success: function (res) {
+            // console.log(res);
+            $("#filter_data_post").show();
+            $("#filter_data_post").html(res.data);
+            $(".ajaxLoader").hide();
+        },
+    };
+
+    $(document).ready(function () {
+        $(".ajaxLoader").hide();
+        for (let index = 0; index < nav_fields.length; index++) {
+            $("#" + nav_fields[index]).on("click", function () {
+                filter_obj.object = nav_fields[index];
+                // console.log(filter_obj)
+                $.ajax(ajax_method);
+            });
+        }
+        $("#all_data").on("click", function () {
+            filter_obj.object = "ALL";
+            $.ajax(ajax_method);
+        });
+
+        for (let index = 0; index < posts.length; index++) {
+            let element = posts[index];
+            if (saved_post_list.includes(element)) {
+                // saved
+                $("#savepost-btn-" + element).hide();
+                $("#remove-saved-btn-" + element).show();
+            } else {
+                // not saved
+                $("#savepost-btn-" + element).show();
+                $("#remove-saved-btn-" + element).hide();
+            }
+            $("#savepost-btn-" + element).click(function () {
+                $("#savepost-btn-" + element).hide();
+                $("#remove-saved-btn-" + element).show();
+            });
+            $("#remove-saved-btn-" + element).click(function () {
+                $("#savepost-btn-" + element).show();
+                $("#remove-saved-btn-" + element).hide();
+            });
+        }
+    });
+
+    let savePost = (p_id) => {
+        const save_post_details = {
+            post_id: p_id,
+        };
+
+        const url = "/save_post/";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({ save_post_details: save_post_details }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log();
+            });
+    };
+    let removeSavedPost = (p_id) => {
+        const save_post_details = {
+            post_id: p_id,
+        };
+
+        const url = "/remove_saved_post/";
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken,
+            },
+            body: JSON.stringify({ save_post_details: save_post_details }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log();
+            });
+    };
+</script>
 
 {% endblock%}

@@ -19,7 +19,6 @@ def home(request):
     return render(request, 'home.html', content)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=[group_inf])
 def viewinf(request,pk):
     content = {}
     try:
@@ -27,7 +26,6 @@ def viewinf(request,pk):
         content['view_obj'] = view_obj
     except Exception as e:
         print(e)
-    context_addition(request, content)
     return render(request, 'views_influencer.html',content)
 
     
@@ -204,7 +202,7 @@ def loginHandle(request):
             request.session.set_expiry(60 * 60 * 24 * 7)
             if user.is_staff:
                 # messages.success(request, 'welcome back :)')
-                return redirect('index')
+                return redirect('dashboardCmp')
             # messages.success(request, 'welcome back :)')
             return redirect('dashboardInf')
 
