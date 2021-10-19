@@ -29,7 +29,7 @@
     <div class="row justify-content-center mt-3" id="filter_data_post">
         {% for post in posts %}
 
-        {% if post.influencer.influencer_id != request.user.id %}
+        {% if post.influencer.influencer_id.id != request.user.id %}
         <div class="col-4">
 
             <div class="wrapper">

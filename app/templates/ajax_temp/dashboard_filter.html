@@ -1,9 +1,8 @@
 {% load custom_tags %}
 {% for post in posts %}
 
-        {% if post.influencer.influencer_id != request.user.id %}
+        {% if post.influencer.influencer_id.id != id %}
         <div class="col-4">
-
             <div class="wrapper">
                 <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">
                     <div class="overlay">

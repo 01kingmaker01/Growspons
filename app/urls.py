@@ -13,6 +13,9 @@ urlpatterns = [
 	path('saved_post_view/', saved_post_view, name='saved_post_view'),
 	path('remove_saved_post/', remove_saved_post, name='remove_saved_post'),
 	path('profile/', profile, name='profile'),
+	path('edit_profile/', edit_profile, name='edit_profile'),
+	path('personal_post/', personal_post, name='personal_post'),
+	path('delete_post/<int:id>/', delete_post, name='delete_post'),
 
 
     path('login/', loginHandle, name='login'),

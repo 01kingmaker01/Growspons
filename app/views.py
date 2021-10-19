@@ -1,5 +1,4 @@
 import json
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -7,7 +6,6 @@ from django.contrib.auth.models import User, Group
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-
 from .models import *
 from .utils import *
 from app.decorators import unauthenticated_user, allowed_users
@@ -87,7 +85,8 @@ def dashboardFilter(request):
     saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id))
     saved_post_ls = [i.post.id for i in saved_posts]
     content = {'posts':posts,
-               'saved_post_ls':saved_post_ls
+               'saved_post_ls':saved_post_ls,
+               'id':request.user.id
                }
     template = render_to_string('ajax_temp/dashboard_filter.html', content)
     return JsonResponse({'data': template})
@@ -152,10 +151,41 @@ def remove_saved_post(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def profile(request):
-    content = {}
-    return render(request, 'profile.html', content)
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    socialmedia = InfSocialMedia.objects.filter(influencer=influencer)
+    content = {'socialmedia':socialmedia, 'influencer':influencer}
+    return render(request, 'profile/profile.html', content)\
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def edit_profile(request):
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    influencer_form = InfluencerForm(instance=influencer)
+    if request.method == 'POST':
+        influencer_form = InfluencerForm(request.POST, request.FILES, instance=influencer)
+        print(influencer_form)
+        if influencer_form.is_valid():
+            influencer_form.save()
+            return redirect('profile')
+    socialmedia = InfSocialMedia.objects.filter(influencer=influencer)
+    content = {'socialmedia':socialmedia, 'influencer':influencer, 'influencer_form':influencer_form, 'user':User.objects.get(username=request.user.username)}
+    return render(request, 'profile/edit_personal.html', content)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def personal_post(request):
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    posts = InfluencerPost.objects.filter(influencer=influencer)
+    content = {'influencer':influencer, 'posts':posts}
+    return render(request, 'profile/post.html', content)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def delete_post(request, id):
+    InfluencerPost.objects.get(id=id).delete()
+    return redirect('personal_post')
 
 
 
