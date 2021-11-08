@@ -1,6 +1,9 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark grey-bgcolor py-2">
+{% load static %}
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark grey-bgcolor">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home' %}">Growspons</a>
+        <a class="navbar-brand my-0 py-0 ps-3" href="{% url 'home' %}">
+            <img src="{% static 'img/logo.png' %}" width="100" height="50" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
