@@ -10,7 +10,7 @@ from .models import *
 from .utils import *
 from .send_email import sendMail
 from app.decorators import unauthenticated_user, allowed_users
-from app.forms import UserForm, InfluencerForm, InluencerPostForm
+from app.forms import UserForm, InfluencerForm, InluencerPostForm, ContentForm
 
 group_inf='Influencer'
 
@@ -204,7 +204,12 @@ def delete_post(request, id):
 def notification(request):
     id = User.objects.get(username=request.user.username).id
     works = Content.objects.filter(influencer=Influencer.objects.get(influencer_id=id))
-    content = {'works':works}
+    work_form_list = []
+    for i in works:
+        work_form = ContentForm(instance=i)
+        work_form_list.append(work_form)
+
+    content = {'works':works, 'work_form_list':work_form_list}
     context_addition(request, content)
     return render(request, 'notification.html', content)
 
@@ -218,8 +223,6 @@ def accept_request(request, post_id, spon_id):
         is_accepted=True
     )
     return redirect('notification')
-
-
 
 
 

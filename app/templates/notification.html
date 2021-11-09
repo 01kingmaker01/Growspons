@@ -26,7 +26,7 @@
 
 
 <!-- Modal -->
-{% for work in works %}
+{% for work in work_form_list %}
 <div class="modal fade" id="{{forloop.counter|int_to_word}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="{{forloop.counter|int_to_word}}label" aria-hidden="true">
     <div class="modal-dialog">
@@ -36,7 +36,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{work.post}}
+                <div class="mb-3">
+                    {{work.influencer}}
+                </div>
+                <div class="mb-3">
+                    {{work.post}}
+                </div>
+                <div class="mb-3">
+                    {{work.sponsor}}
+                </div>
+                <div class="mb-3">
+                    {{work.content_link}}
+                </div>
+                <div>
+                    {{work.is_accepted}}
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Send</button>
