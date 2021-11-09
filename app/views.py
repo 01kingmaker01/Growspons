@@ -205,6 +205,12 @@ def notification(request):
     context_addition(request, content)
     return render(request, 'notification.html', content)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def accept_request(request):
+
+    return redirect('notification')
+
 
 
 
