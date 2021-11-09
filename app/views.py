@@ -136,6 +136,7 @@ def save_post(request):
             post=post,
             who_saved=Influencer.objects.get(influencer_id=request.user.id)
         )
+    messages.success(request, 'Post Saved !')    
     return JsonResponse('Done', safe=False)
 
 
@@ -155,6 +156,7 @@ def remove_saved_post(request):
             post=post,
             who_saved=Influencer.objects.get(influencer_id=request.user.id)
         ).delete()
+    messages.success(request, 'welcome back :)')    
     return JsonResponse('Done', safe=False)
 
 
@@ -214,9 +216,9 @@ def loginHandle(request):
             login(request, user)
             request.session.set_expiry(60 * 60 * 24 * 7)
             if user.is_staff:
-                # messages.success(request, 'welcome back :)')
+                messages.success(request, 'welcome back :)')
                 return redirect('dashboardCmp')
-            # messages.success(request, 'welcome back :)')
+            messages.success(request, 'welcome back :)')
             return redirect('dashboardInf')
 
         else:
