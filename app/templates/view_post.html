@@ -316,9 +316,11 @@
                         </div>
                         
                     </div>
+                    {% if request.user.is_staff %}
                     <div class="hero-btns">
-                        <button type="button" style="font-weight: 400; font-size: 1.08rem;" class="btn-trans">Buy Now</button>
+                        <a href="{% url 'payment' %}" style="font-weight: 400; font-size: 1.08rem;" class="btn-trans">Buy Now</a>
                     </div>
+                    {% endif %}
                 </div>
 
             </div>

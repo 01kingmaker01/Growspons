@@ -27,7 +27,7 @@ def viewinf(request,pk):
         content['view_obj'] = view_obj
     except Exception as e:
         print(e)
-    return render(request, 'views_influencer.html',content)
+    return render(request, 'view_post.html', content)
 
     
 @login_required(login_url='login')
@@ -121,28 +121,40 @@ def influencerPost(request):
     return render(request, 'influencer_post.html', content)
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=[group_inf])
 def save_post(request):
     data = json.loads(request.body)
     p_id = data['save_post_details']['post_id']
     post = InfluencerPost.objects.get(id=p_id)
-    InfSavePost.objects.create(
-        post=post,
-        who_saved=Influencer.objects.get(influencer_id=request.user.id)
-    )
+    if request.user.is_staff:
+        CmpSavePost.objects.create(
+            post=post,
+            ##change after sponsor details
+            who_saved=User.objects.get(id=request.user.id)
+        )
+    else:
+        InfSavePost.objects.create(
+            post=post,
+            who_saved=Influencer.objects.get(influencer_id=request.user.id)
+        )
     return JsonResponse('Done', safe=False)
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=[group_inf])
 def remove_saved_post(request):
     data = json.loads(request.body)
     p_id = data['save_post_details']['post_id']
     post = InfluencerPost.objects.get(id=p_id)
-    InfSavePost.objects.filter(
-        post=post,
-        who_saved=Influencer.objects.get(influencer_id=request.user.id)
-    ).delete()
+    if request.user.is_staff:
+        CmpSavePost.objects.filter(
+            post=post,
+            ##change after sponsor details
+            who_saved=User.objects.get(id=request.user.id)
+        ).delete()
+    else:
+        InfSavePost.objects.filter(
+            post=post,
+            who_saved=Influencer.objects.get(influencer_id=request.user.id)
+        ).delete()
     return JsonResponse('Done', safe=False)
 
 
@@ -153,7 +165,7 @@ def profile(request):
     influencer = Influencer.objects.get(influencer_id=request.user.id)
     socialmedia = InfSocialMedia.objects.filter(influencer=influencer)
     content = {'socialmedia':socialmedia, 'influencer':influencer}
-    return render(request, 'profile/profile.html', content)\
+    return render(request, 'profile/profile.html', content)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
