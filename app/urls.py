@@ -19,6 +19,7 @@ urlpatterns = [
 	path('notification/', notification, name='notification'),
 	path('accept_request/<int:post_id>/<int:spon_id>/', accept_request, name='accept_request'),
 	path('display_modal/<int:work_id>', display_modal, name='display_modal'),
+	path('transaction/', transaction, name='transactioninf'),
 
 
     path('login/', loginHandle, name='login'),

@@ -229,7 +229,7 @@ def display_modal(request, work_id):
         sendMail(request, email=[work.sponsor.sponsor_id.email], mailFor=context, msg='payment',
                  subject='Sponsorship Acceptance')
         messages.success(request, 'Send Successfully')
-        return redirect('dashboardInfh')
+        return redirect('dashboardInf')
     content = {'work':work, 'work_form':work_form}
     context_addition(request, content)
     return render(request, 'modal_display.html', content)
@@ -245,7 +245,14 @@ def accept_request(request, post_id, spon_id):
     )
     return redirect('notification')
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def transaction(request):
+    influencer = Influencer.objects.get(influencer_id=User.objects.get(username=request.user.username))
+    sponsored_details = Sponsored.objects.filter(influencer=influencer)
+    content = {'sponsored_details': sponsored_details}
+    context_addition(request, content)
+    return render(request, 'transaction.html', content)
 
 
 

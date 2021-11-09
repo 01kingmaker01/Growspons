@@ -80,6 +80,7 @@ def payment(request, post_id):
             complete=True,
             post=post
         )
+        messages.success(request, 'Payment Successfully Done')
         return JsonResponse('Done', safe=True)
     content = {'post':post, 'id':post_id}
     context_addition(request, content)
@@ -87,13 +88,15 @@ def payment(request, post_id):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=[group_cmp])
 def transaction(request):
     sponsor = Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
     sponsored_details = Sponsored.objects.filter(sponsor=sponsor)
-    content = {'sponsored_details':sponsored_details}
-    context_addition(request, content)
+    content = {'sponsored_details': sponsored_details, 'sponsor': sponsor}
     return render(request, 'company/transaction.html', content)
+
+
+
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_cmp])
