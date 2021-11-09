@@ -280,7 +280,7 @@
 																		<p
 																			style="margin: 0; font-size: 16px; text-align: center;">
 																			<span
-																				style="font-size:30px;color:#2b303a;"><strong>Sponsor</strong></span>
+																				style="font-size:30px;color:#2b303a;"><strong>{{mailFor.work.sponsor.sponsor_id.first_name}}</strong></span>
 																		</p>
 																	</div>
 																</div>
@@ -300,9 +300,9 @@
 																		<p
 																			style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 22.5px;">
 																			<span
-																				style="color:#808389;font-size:15px;">Bhavesh
+																				style="color:#808389;font-size:15px;">{{mailFor.work.influencer.influencer_id.username}}
 																				has successfully completed the work. You
-																				can check work by clicking here.</span>
+																				can check work by clicking <a href="{{mailFor.work.content_link}}">here</a>.</span>
 																		</p>
 																	</div>
 																</div>
@@ -370,7 +370,7 @@
 										</p>
 										<p
 											style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 30px;">
-											<span style="color:#2b303a;font-size:20px;"><strong>₹ 99.00</strong></span>
+											<span style="color:#2b303a;font-size:20px;"><strong>₹ {{mailFor.work.post.price}}</strong></span>
 										</p>
 									</div>
 								</div>
@@ -404,7 +404,7 @@
 																		style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#1aa19c;border-radius:60px;width:auto;border-top:1px solid #1aa19c;border-right:1px solid #1aa19c;border-bottom:1px solid #1aa19c;border-left:1px solid #1aa19c;padding-top:15px;padding-bottom:15px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;">
 																		<span
 																			style="cursor: pointer; padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;letter-spacing:normal;"><span
-																				style="font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><a style="color: white;text-decoration: none;" href="#"><strong>Proceed
+																				style="font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><a style="color: white;text-decoration: none;" href="http://127.0.0.1:8000/company/payment/{{mailFor.work.post.id}}/"><strong>Proceed
 																					to Payment
 																				</strong></a></span></span>
 																	</div>

@@ -209,19 +209,30 @@ def notification(request):
         work_form = ContentForm(instance=i)
         work_form_list.append(work_form)
 
-    if request.method == 'POST':
-        sponsor = Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
-        context={
-            'sponsor':sponsor,
-            'works':works
-        }
-        sendMail(request, email=[works.sponsor.sponsor_id.email], mailFor=context, msg='payment',
-                 subject='Sponsorship Acceptance')
-        messages.success(request, 'Send Successfully')
-        return redirect('dashboardCmp')
+
     content = {'works':works, 'work_form_list':work_form_list}
     context_addition(request, content)
     return render(request, 'notification.html', content)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def display_modal(request, work_id):
+    work = Content.objects.filter(id=work_id).first()
+    work_form = ContentForm(instance=work)
+    if request.method == 'POST':
+        work_form = ContentForm(request.POST, instance=work)
+        work_form.save()
+        context = {
+            'work': work
+        }
+        sendMail(request, email=[work.sponsor.sponsor_id.email], mailFor=context, msg='payment',
+                 subject='Sponsorship Acceptance')
+        messages.success(request, 'Send Successfully')
+        return redirect('dashboardInfh')
+    content = {'work':work, 'work_form':work_form}
+    context_addition(request, content)
+    return render(request, 'modal_display.html', content)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
