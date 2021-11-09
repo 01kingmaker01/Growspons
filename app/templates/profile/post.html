@@ -17,15 +17,6 @@
             flex-wrap: wrap;
             width: 104%;
         }
-
-        .group .detailview {
-            border-radius: .5rem;
-            border-right: 1px solid #999;
-            border-bottom: 1px solid #999;
-            border-left: 10px solid #00ADB5;
-            width: 96%;
-        }
-
         .group .detailview .title {
             display: flex;
             padding: 30px;
@@ -88,7 +79,7 @@
 
 <div class="container mt-5 pt-5">
    {% for post in posts %}
-   <section class="mb-5 shadow">
+   <section class="mb-5 shadow bg-body rounded">
     <div class="group">
         <div class="detailview">
             <div class="title">
