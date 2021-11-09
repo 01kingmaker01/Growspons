@@ -1,5 +1,6 @@
 import random
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
@@ -109,6 +110,7 @@ def accept_mail(request, id):
         'sponsor':sponsor
     }
     sendMail(request,email=[post.influencer.influencer_id.email],mailFor=content ,msg='acceptDeal', subject='Sponsorship Acceptance')
+    messages.success(request, 'Send Successfully')
     return redirect('dashboardCmp')
 
 
@@ -118,7 +120,6 @@ def creation(request):
     form=SponserForm()
     if request.method=="POST":
         form=SponserForm(request.POST,request.FILES)
-        print(form)
         if form.is_valid():
             form.save()
             return redirect("dashboardCmp")

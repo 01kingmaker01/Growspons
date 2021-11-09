@@ -13,8 +13,11 @@ def sendMail(request, email, mailFor, msg, subject):
     elif msg== 'acceptDeal':
         template = get_template('authentication/acceptemail.html').render(content)    
 
+    elif msg=='payment':
+        template = get_template('authentication/paymail.html').render(content)
+
     else:
-        template = get_template('authentication/acceptemail.html').render(content)
+        template = get_template('authentication/paymail.html').render(content)
     
     if not subject:
         subject = 'Welcome to The Growspons'
