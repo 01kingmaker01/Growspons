@@ -210,7 +210,6 @@ def notification(request):
         work_form_list.append(work_form)
 
     if request.method == 'POST':
-
         sponsor = Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
         context={
             'sponsor':sponsor,
@@ -218,7 +217,6 @@ def notification(request):
         }
         sendMail(request, email=[works.sponsor.sponsor_id.email], mailFor=context, msg='payment',
                  subject='Sponsorship Acceptance')
-        messages.success(request, 'Send Successfully')
         messages.success(request, 'Send Successfully')
         return redirect('dashboardCmp')
     content = {'works':works, 'work_form_list':work_form_list}

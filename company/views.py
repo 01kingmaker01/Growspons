@@ -1,10 +1,5 @@
 import random
 
-<<<<<<< HEAD
-from django.contrib import messages
-=======
-
->>>>>>> fee08ff4d18fbeae06d2276b19155022749e9a66
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
