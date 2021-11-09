@@ -1,0 +1,48 @@
+{% extends "dashboard_base.html"%}
+{% load static %}
+{% load custom_tags %}
+{% block title%}Notification{% endblock%}
+{% block content %}
+
+<div class="mt-5">
+    <h4 class="mb-3 text-center">Notifications</h4>
+    {% for work in works %}
+    <div class="card card-body mb-3 shadow-sm" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#{{forloop.counter|int_to_word}}">
+        <div class="row">
+            <div class="col-8"><strong>{{work.post.title}}</strong> - {{work.sponsor.sponsor_id.first_name}}</div>
+            <div class="col-4">
+                {% if work.content_link == None %}
+                <span style="color: green;">work pending..</span>
+                {% else %}
+                <span style="color: #af1d0a;">completed</span>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+<!-- Modal -->
+{% for work in works %}
+<div class="modal fade" id="{{forloop.counter|int_to_word}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="{{forloop.counter|int_to_word}}label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{forloop.counter|int_to_word}}label">Add Work After Completion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{work.post}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock%}

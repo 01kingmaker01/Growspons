@@ -18,3 +18,8 @@ class InluencerPostForm(ModelForm):
         model=InfluencerPost
         fields='__all__'
         exclude = ['slug']
+
+class ContentForm(ModelForm):
+    class Meta:
+        model=Content
+        fields='__all__'

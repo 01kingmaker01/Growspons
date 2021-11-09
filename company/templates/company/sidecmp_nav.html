@@ -26,7 +26,7 @@
     <div class="card-body">
         <div class="d-flex">
             <div class="d-flex flex-column text-center">
-                <p class="mb-1 mt-2"><strong>##</strong></p>
+                <p class="mb-1 mt-2"><strong>{{request.user.username}}</strong></p>
             </div>
         </div>
         <hr class="my-3" style="color: #e2e2e2;">
@@ -38,18 +38,18 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{% url 'transaction' %}">
                         <i class="fas fa-money-bill-wave fa-lg"></i><strong>Transaction</strong>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'sponsored' %}">
+                        <i class="fas fa-user-circle fa-lg"></i><strong>Sponsored</strong>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'cmp_save_post' %}">
                         <i class="fas fa-bookmark fa-lg"></i><strong>Save Posts</strong>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="fas fa-user-circle fa-lg"></i><strong> History</strong>
                     </a>
                 </li>
                 <li>

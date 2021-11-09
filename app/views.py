@@ -21,7 +21,7 @@ def home(request):
 
 @login_required(login_url='login')
 def viewinf(request,pk):
-    content = {}
+    content = {'id':pk}
     try:
         view_obj = InfluencerPost.objects.filter(id=pk)
         content['view_obj'] = view_obj
@@ -128,8 +128,7 @@ def save_post(request):
     if request.user.is_staff:
         CmpSavePost.objects.create(
             post=post,
-            ##change after sponsor details
-            who_saved=User.objects.get(id=request.user.id)
+            who_saved=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
         )
     else:
         InfSavePost.objects.create(
@@ -148,8 +147,7 @@ def remove_saved_post(request):
     if request.user.is_staff:
         CmpSavePost.objects.filter(
             post=post,
-            ##change after sponsor details
-            who_saved=User.objects.get(id=request.user.id)
+            who_saved=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
         ).delete()
     else:
         InfSavePost.objects.filter(
@@ -199,6 +197,15 @@ def personal_post(request):
 def delete_post(request, id):
     InfluencerPost.objects.get(id=id).delete()
     return redirect('personal_post')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def notification(request):
+    id = User.objects.get(username=request.user.username).id
+    works = Content.objects.filter(influencer=Influencer.objects.get(influencer_id=id))
+    content = {'works':works}
+    context_addition(request, content)
+    return render(request, 'notification.html', content)
 
 
 
@@ -279,7 +286,7 @@ def companySignupHandle(request):
                 login(request, user)
                 request.session.set_expiry(60 * 60 * 24 * 7)
                 messages.success(request, f"created")
-                return redirect('dashboardCmp')
+                return redirect('creation')
             except:
                 messages.error(request, f"username already exist")
                 return redirect('signUp')

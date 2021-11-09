@@ -1,13 +1,18 @@
+import random
+
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from app.models import *
+from app.send_email import sendMail
 from app.utils import *
-# Create your views here.
 from app.decorators import allowed_users
 
+from .forms import SponserForm
+
 group_cmp = 'Company'
+
 
 
 @login_required(login_url='login')
@@ -15,7 +20,7 @@ group_cmp = 'Company'
 def dashboardCmp(request):
     posts = InfluencerPost.objects.all().order_by("-id")
     nav_field = [i.field for i in posts]
-    saved_posts = CmpSavePost.objects.filter(who_saved=User.objects.get(id=request.user.id))
+    saved_posts = CmpSavePost.objects.filter(who_saved=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username)))
     saved_post_ls = [i.post.id for i in saved_posts]
     content = {
                'posts':posts,
@@ -36,7 +41,7 @@ def dashboardFilter(request):
         posts = InfluencerPost.objects.all().order_by('-id')
     else:
         posts = InfluencerPost.objects.filter(field=data).order_by('-id')
-    saved_posts = CmpSavePost.objects.filter(who_saved=User.objects.get(id=request.user.id))
+    saved_posts = CmpSavePost.objects.filter(who_saved=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username)))
     saved_post_ls = [i.post.id for i in saved_posts]
     content = {'posts':posts,
                'saved_post_ls':saved_post_ls
@@ -47,16 +52,78 @@ def dashboardFilter(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_cmp])
-def payment(request):
-    content = {}
-    return render(request, 'company/payment.html', content)
-
-@login_required(login_url='login')
-@allowed_users(allowed_roles=[group_cmp])
 def saved_post_view(request):
-    saved_posts = CmpSavePost.objects.filter(who_saved=User.objects.get(id=request.user.id)).order_by("-id")
+    saved_posts = CmpSavePost.objects.filter(who_saved=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))).order_by("-id")
     saved_post_ls = [i.post.id for i in saved_posts]
     content = {'posts':saved_posts,
                'saved_post_ls':saved_post_ls,
                }
     return render(request, 'company/save_post.html', content)
+
+
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_cmp])
+def payment(request, post_id):
+    post = InfluencerPost.objects.filter(id=post_id).first()
+    if request.method == 'POST':
+        Sponsored.objects.create(
+            influencer=post.influencer,
+            sponsor=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username)),
+            mode_of_sponsorship='online',
+            amount=post.price,
+            transaction_id=random.randint(11111111, 99999999),
+            complete=True,
+            post=post
+        )
+        return JsonResponse('Done', safe=True)
+    content = {'post':post, 'id':post_id}
+    return render(request, 'company/payment.html', content)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_cmp])
+def transaction(request):
+    sponsor = Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
+    sponsored_details = Sponsored.objects.filter(sponsor=sponsor)
+    content = {'sponsored_details':sponsored_details}
+    return render(request, 'company/transaction.html', content)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_cmp])
+def sponsored(request):
+    sponsor = Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
+    sponsored_details = Sponsored.objects.filter(sponsor=sponsor)
+    posts = [i.post for i in sponsored_details]
+    content = {'posts':posts}
+    return render(request, 'company/history.html', content)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_cmp])
+def accept_mail(request, id):
+    post = InfluencerPost.objects.filter(id=id).first()
+    sponsor = Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
+    content = {
+        'post':post,
+        'sponsor':sponsor
+    }
+    sendMail(request,email=sponsor.sponsor_id.email,mailFor=content ,msg='acceptDeal', subject='Sponsorship Acceptance')
+    return redirect('dashboardCmp')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_cmp])
+def creation(request):
+    form=SponserForm()
+    if request.method=="POST":
+        form=SponserForm(request.POST,request.FILES)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect("dashboardCmp")
+    content={"form":form}
+    return render(request,"company/creation.html",content)
+
+
+
