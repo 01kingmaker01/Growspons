@@ -1,13 +1,17 @@
 import random
 
+<<<<<<< HEAD
 from django.contrib import messages
+=======
+
+>>>>>>> fee08ff4d18fbeae06d2276b19155022749e9a66
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from app.models import *
 from app.send_email import sendMail
-from app.utils import *
+from company.utils import *
 from app.decorators import allowed_users
 
 from .forms import SponserForm
@@ -27,7 +31,8 @@ def dashboardCmp(request):
                'posts':posts,
                'nav_fields':list(set(nav_field)),
                'saved_post_ls':saved_post_ls
-               }           
+               }
+    context_addition(request, content)                      
     return render(request, 'company/index.html', content)
 
 
@@ -46,7 +51,7 @@ def dashboardFilter(request):
     saved_post_ls = [i.post.id for i in saved_posts]
     content = {'posts':posts,
                'saved_post_ls':saved_post_ls
-               }
+               }           
     template = render_to_string('company/ajax_temp/dashboard_filter.html', content)
     return JsonResponse({'data': template})    
 
@@ -59,6 +64,7 @@ def saved_post_view(request):
     content = {'posts':saved_posts,
                'saved_post_ls':saved_post_ls,
                }
+    context_addition(request, content)           
     return render(request, 'company/save_post.html', content)
 
 
@@ -80,6 +86,7 @@ def payment(request, post_id):
         )
         return JsonResponse('Done', safe=True)
     content = {'post':post, 'id':post_id}
+    context_addition(request, content)
     return render(request, 'company/payment.html', content)
 
 
@@ -89,6 +96,7 @@ def transaction(request):
     sponsor = Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
     sponsored_details = Sponsored.objects.filter(sponsor=sponsor)
     content = {'sponsored_details':sponsored_details}
+    context_addition(request, content)
     return render(request, 'company/transaction.html', content)
 
 @login_required(login_url='login')
@@ -98,6 +106,7 @@ def sponsored(request):
     sponsored_details = Sponsored.objects.filter(sponsor=sponsor)
     posts = [i.post for i in sponsored_details]
     content = {'posts':posts}
+    context_addition(request, content)
     return render(request, 'company/history.html', content)
 
 @login_required(login_url='login')
