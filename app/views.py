@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from .models import *
 from .utils import *
+from .send_email import sendMail
 from app.decorators import unauthenticated_user, allowed_users
 from app.forms import UserForm, InfluencerForm, InluencerPostForm
 
@@ -231,6 +232,9 @@ def signupHandle(request):
                     login(request, user)
                     request.session.set_expiry(60 * 60 * 24 * 7)
                     messages.success(request, f"created")
+                    sendMail(request, [user.email], {
+						'p1': user.username,
+						}, 'AddPAndWelcome', 'Welcome To Growspons')
                     return redirect('influencer_details')
                 except:
                     messages.error(request, f"username already exist")
