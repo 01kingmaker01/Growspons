@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "dashboard_base.html" %}
 {% load static %}
 {% block title %}
 profile
@@ -7,12 +7,12 @@ profile
 {% block content %}
 
 
-<div class="mt-5 pt-5">
-    <div class="card shadow card-body w-50 mx-auto px-5">
+<div class="mt-5">
+    <h3 class="grey-color text-center my-3">Add Post</h3>
+    <div class="card shadow card-body mx-2">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div id="personal-details">
-                <h3 class="grey-color text-center my-3">Add Post</h3>
                 <div class="mb-3" style="display: none;">
                     {{form.influencer}}
                 </div>
@@ -28,6 +28,22 @@ profile
                     {{form.field}}
                     <label for="id_field">Field of interest</label>
                 </div>
+                <div class="mb-3 form-floating">
+                    {{form.price}}
+                    <label for="id_price">Price</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.price_desc}}
+                    <label for="id_price_desc">Description about Price</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.adfield}}
+                    <label for="id_field">Field of Advertisement</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.day}}
+                    <label for="id_day">No. of days </label>
+                </div>
                 <div class=" mb-3">
                     <!-- <input type="text" value="choose profile image" id="profile-img-in" readonly style="cursor: pointer;" onclick="fileTrig()"> -->
                     <label for="id_post_img" style="color: #eee;">Post</label>
@@ -36,7 +52,7 @@ profile
                 </div>
 
                 <div class="mb-3 mt-5 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-outline-primary w-50">Add Post</button>
+                    <button type="submit" class="btn btn-outline-dark w-50">Add Post</button>
                 </div>
             </div>
         </form>

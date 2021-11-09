@@ -1,11 +1,11 @@
 import json
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-
+from django.template.loader import render_to_string
 from .models import *
 from .utils import *
 from app.decorators import unauthenticated_user, allowed_users
@@ -18,7 +18,17 @@ def home(request):
     content = {}
     return render(request, 'home.html', content)
 
+@login_required(login_url='login')
+def viewinf(request,pk):
+    content = {}
+    try:
+        view_obj = InfluencerPost.objects.filter(id=pk)
+        content['view_obj'] = view_obj
+    except Exception as e:
+        print(e)
+    return render(request, 'view_post.html', content)
 
+    
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def influencer_details(request):
@@ -49,11 +59,48 @@ def influencer_details(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def dashboardInf(request):
-    influencer = Influencer.objects.get(influencer_id=request.user.id)
-    posts = InfluencerPost.objects.all()
-    all_influencer = Influencer.objects.all()[:3]
-    content = {'influencer':influencer, 'posts':posts, 'all_influencer':all_influencer}
+    posts = InfluencerPost.objects.all().order_by("-id")
+    nav_field = [i.field for i in posts]
+    saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id))
+    saved_post_ls = [i.post.id for i in saved_posts]
+    content = {
+               'posts':posts,
+               'nav_fields':list(set(nav_field)),
+               'saved_post_ls':saved_post_ls
+               }
+    context_addition(request, content)
     return render(request, 'dashboard.html', content)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def dashboardFilter(request):
+    data = request.GET.get('object')
+    if data == 'ALL':
+        posts = InfluencerPost.objects.all().order_by('-id')
+    else:
+        posts = InfluencerPost.objects.filter(field=data).order_by('-id')
+    saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id))
+    saved_post_ls = [i.post.id for i in saved_posts]
+    content = {'posts':posts,
+               'saved_post_ls':saved_post_ls,
+               'id':request.user.id
+               }
+    template = render_to_string('ajax_temp/dashboard_filter.html', content)
+    return JsonResponse({'data': template})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def saved_post_view(request):
+    saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id)).order_by("-id")
+    saved_post_ls = [i.post.id for i in saved_posts]
+    content = {'posts':saved_posts,
+               'saved_post_ls':saved_post_ls,
+               
+               }
+    context_addition(request, content)
+    return render(request, 'saved_post_view.html', content)
 
 
 @login_required(login_url='login')
@@ -69,17 +116,86 @@ def influencerPost(request):
             return redirect('dashboardInf')
 
     content = {'form':form,'user':Influencer.objects.get(influencer_id=request.user.id),}
+    context_addition(request, content)
     return render(request, 'influencer_post.html', content)
 
+@login_required(login_url='login')
+def save_post(request):
+    data = json.loads(request.body)
+    p_id = data['save_post_details']['post_id']
+    post = InfluencerPost.objects.get(id=p_id)
+    if request.user.is_staff:
+        CmpSavePost.objects.create(
+            post=post,
+            ##change after sponsor details
+            who_saved=User.objects.get(id=request.user.id)
+        )
+    else:
+        InfSavePost.objects.create(
+            post=post,
+            who_saved=Influencer.objects.get(influencer_id=request.user.id)
+        )
+    return JsonResponse('Done', safe=False)
+
+
+@login_required(login_url='login')
+def remove_saved_post(request):
+    data = json.loads(request.body)
+    p_id = data['save_post_details']['post_id']
+    post = InfluencerPost.objects.get(id=p_id)
+    if request.user.is_staff:
+        CmpSavePost.objects.filter(
+            post=post,
+            ##change after sponsor details
+            who_saved=User.objects.get(id=request.user.id)
+        ).delete()
+    else:
+        InfSavePost.objects.filter(
+            post=post,
+            who_saved=Influencer.objects.get(influencer_id=request.user.id)
+        ).delete()
+    return JsonResponse('Done', safe=False)
 
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def profile(request):
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    socialmedia = InfSocialMedia.objects.filter(influencer=influencer)
+    content = {'socialmedia':socialmedia, 'influencer':influencer}
+    return render(request, 'profile/profile.html', content)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def edit_profile(request):
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    influencer_form = InfluencerForm(instance=influencer)
+    if request.method == 'POST':
+        influencer_form = InfluencerForm(request.POST, request.FILES, instance=influencer)
+        print(influencer_form)
+        if influencer_form.is_valid():
+            influencer_form.save()
+            return redirect('profile')
+    socialmedia = InfSocialMedia.objects.filter(influencer=influencer)
+    content = {'socialmedia':socialmedia, 'influencer':influencer, 'influencer_form':influencer_form, 'user':User.objects.get(username=request.user.username)}
+    return render(request, 'profile/edit_personal.html', content)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def personal_post(request):
+    influencer = Influencer.objects.get(influencer_id=request.user.id)
+    posts = InfluencerPost.objects.filter(influencer=influencer)
+    content = {'influencer':influencer, 'posts':posts}
+    return render(request, 'profile/post.html', content)
 
 
-
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def delete_post(request, id):
+    InfluencerPost.objects.get(id=id).delete()
+    return redirect('personal_post')
 
 
 
@@ -98,7 +214,7 @@ def loginHandle(request):
             request.session.set_expiry(60 * 60 * 24 * 7)
             if user.is_staff:
                 # messages.success(request, 'welcome back :)')
-                return redirect('index')
+                return redirect('dashboardCmp')
             # messages.success(request, 'welcome back :)')
             return redirect('dashboardInf')
 
@@ -157,7 +273,7 @@ def companySignupHandle(request):
                 login(request, user)
                 request.session.set_expiry(60 * 60 * 24 * 7)
                 messages.success(request, f"created")
-                return redirect('index')
+                return redirect('dashboardCmp')
             except:
                 messages.error(request, f"username already exist")
                 return redirect('signUp')

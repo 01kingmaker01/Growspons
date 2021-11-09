@@ -17,3 +17,4 @@ class InluencerPostForm(ModelForm):
     class Meta:
         model=InfluencerPost
         fields='__all__'
+        exclude = ['slug']

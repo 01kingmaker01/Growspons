@@ -32,7 +32,7 @@ SignUp
         padding: 30px 30px;
         border-radius: 5px;
         background: #fff;
-        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        /* box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1); */
     }
 
     .wrapper header {
@@ -96,23 +96,23 @@ SignUp
         left: 50%;
     }
 
-    section .content {
+    section .nav-box {
         display: none;
         background: #fff;
     }
 
-    #influencer:checked~section .content-1,
-    #company:checked~section .content-2 {
+    #influencer:checked~section .nav-box-1,
+    #company:checked~section .nav-box-2 {
         display: block;
     }
 
-    section .content .title {
+    section .nav-box .title {
         font-size: 21px;
         font-weight: 500;
         margin: 30px 0 10px 0;
     }
 
-    section .content p {
+    section .nav-box p {
         text-align: justify;
     }
 </style>
@@ -139,7 +139,7 @@ SignUp
                 </div>
                 {% endfor %}
                 {% endif %}
-                <div class="content content-1">
+                <div class="nav-box nav-box-1">
                     <form action="{% url 'signUp' %}" method="post" autocomplete="on">
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-3 m-auto">
@@ -181,7 +181,7 @@ SignUp
                         </div>
                     </form>
                 </div>
-                <div class="content content-2">
+                <div class="nav-box nav-box-2">
                     <form action="{% url 'companySignupHandle' %}" method="post" autocomplete="on">
                         {% csrf_token %}
                         <div class="card card-body w-75 mt-5 m-auto">
@@ -229,8 +229,9 @@ SignUp
     </div>
 
     <div class="item grey-bgcolor">
-        <div class="signUp-info light-color" style="margin-top: 45%;text-align: center;">
-            <h2>WELCOME TO GROWSPONS!</h2>
+        <div class="signUp-info light-color" style="text-align: center;">
+            <img src="{% static 'img/logo_gif.gif' %}"  alt="..." >
+            <h2 class="mt-5">WELCOME TO GROWSPONS!</h2>
             <h6 class="my-1">
                 Increase Your Reach By Getting and providing Sponsors
             </h6>

@@ -1,0 +1,74 @@
+{% extends "authentication/base.html" %}
+{% load static %}
+{% block title %}
+Login
+{% endblock title %}
+{% block content %}
+
+<div class="container mt-5 w-50">
+    <form action="{% url 'creation' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">ID</label>
+            {{form.sponsor_id}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Field</label>
+            {{form.field}}
+        </div>
+        <!-- <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Profile Img</label>
+           
+        </div> -->
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Pancard No.</label>
+            {{form.pancard}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">CIN No.</label>
+            {{form.cin_no}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Mode Of Transaction</label>
+            {{form.mode_of_transaction}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Phone No.</label>
+            {{form.phone_no}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Address</label>
+            {{form.address}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Website Link</label>
+            {{form.website_link}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Facebook</label>
+            {{form.facebook}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Instagram</label>
+            {{form.instagram}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Twitter</label>
+            {{form.twitter}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Other Link</label>
+            {{form.other_link}}
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary ">Submit</button>
+    </form>
+</div>
+
+<script>
+    $("input").addClass("form-control")
+    $("select").addClass("form-select")
+    $("textarea").addClass("form-control")
+</script>
+{% endblock %}

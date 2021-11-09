@@ -7,12 +7,16 @@ fields_list=sorted({
     ("Commentary","Commentary"),("ProductReview","ProductReview"),("Comedy","Comedy"),("Reaction","Reaction"),("Q&A","Q&A"),("Interview","Interview"),("Educational","Educational"),("Music","Music"),("Gaming","Gaming"),("Sport","Sport"),("Food","Food"),("Fashion","Fashion"),("Travel","Travel")
 })
 
+adfields_list=sorted({
+    ("Instagram Story + Swipe Up","Instagram Story + Swipe Up"),("Instagram Post","Instagram Post"),("Instagram Reels","Instagram Reels"),("Facebook Story + Swipe Up","Facebook Story + Swipe Up"),("Instagram Post","Instagram Post"),("Facebook Post","Facebook Post"),("YouTube Shorts + Swipe Up","YouTube Shorts + Swipe Up"), ("YouTube Video","YouTube Video"),("Tiktok Video", "Tiktok Video")
+})
+
 
 
 class Sponsor(models.Model):
     sponsor_id=models.OneToOneField(User,on_delete=models.CASCADE)
     field=models.CharField(max_length=50,choices=fields_list)
-    profile_img=models.ImageField(upload_to="media/profileImg/sponsor")
+    profile_img=models.ImageField(upload_to="profileImg/sponsor/")
     pancard=models.CharField(max_length=12,null=True)
     cin_no=models.CharField(max_length=21,null=True)
     mode_of_transaction=models.CharField(max_length=25,choices=sorted({
@@ -36,7 +40,7 @@ class Sponsor(models.Model):
 class Influencer(models.Model):
     influencer_id=models.OneToOneField(User,on_delete=models.CASCADE)
     field=models.CharField(max_length=50,choices=fields_list)
-    profileImg=models.ImageField(upload_to="media/profileImg/influencer")
+    profileImg=models.ImageField(upload_to="profileImg/influencer/")
     dob = models.DateField()
     phone_no=models.CharField(max_length=13)
     bio=models.TextField(max_length=300)
@@ -68,12 +72,33 @@ class InfSocialMedia(models.Model):
 class InfluencerPost(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     title=models.CharField(max_length=300)
+    price=models.IntegerField(null=True, blank=True, default=0)
+    price_desc=models.TextField(max_length=500,null=True)
+    day=models.IntegerField(null=True, blank=True, default=5)
     description=models.TextField(max_length=500,null=True)
     field=models.CharField(max_length=50,choices=fields_list)
-    post_img=models.ImageField(upload_to="media/profileImg/influencer")
+    adfield=models.CharField(max_length=50,choices=adfields_list,null=True)
+    post_img=models.ImageField(upload_to="post/influencer/")
 
     def __str__(self):
         return str(self.title)+","+str(self.influencer)
+
+
+class InfSavePost(models.Model):
+    who_saved = models.ForeignKey(Influencer, on_delete=models.CASCADE)
+    post = models.ForeignKey(InfluencerPost, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.post_id)
+
+class CmpSavePost(models.Model):
+    who_saved = models.ForeignKey(User, on_delete=models.CASCADE)    # later change to Sponser
+    post = models.ForeignKey(InfluencerPost, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.post_id)
 
 class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
@@ -88,8 +113,10 @@ class Sponsored(models.Model):
     sponsor=models.ForeignKey(Sponsor,on_delete=models.CASCADE)
     posted=models.ForeignKey(Content,on_delete=models.CASCADE)
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
-
+        ('online','online')
     }))
     transaction_id=models.CharField(max_length=50)
     amount=models.IntegerField(null=True)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+    complete = models.BooleanField(default=False, null=True, blank=False)
 

@@ -4,9 +4,18 @@ from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
+	path('view/<int:pk>', viewinf, name='viewinf'),
     path('influencer_details/', influencer_details, name="influencer_details"),
     path('dashboard/', dashboardInf, name="dashboardInf"),
+	path('dashboard/filter', dashboardFilter, name="dashboardFilter"),
     path('add_post/', influencerPost, name="influencerPost"),
+	path('save_post/', save_post, name='save_post'),
+	path('saved_post_view/', saved_post_view, name='saved_post_view'),
+	path('remove_saved_post/', remove_saved_post, name='remove_saved_post'),
+	path('profile/', profile, name='profile'),
+	path('edit_profile/', edit_profile, name='edit_profile'),
+	path('personal_post/', personal_post, name='personal_post'),
+	path('delete_post/<int:id>/', delete_post, name='delete_post'),
 
 
     path('login/', loginHandle, name='login'),
