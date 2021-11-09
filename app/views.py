@@ -208,6 +208,17 @@ def notification(request):
     context_addition(request, content)
     return render(request, 'notification.html', content)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def accept_request(request, post_id, spon_id):
+    work = Content.objects.create(
+        influencer=Influencer.objects.get(influencer_id=User.objects.get(username=request.user.username)),
+        sponsor=Sponsor.objects.get(id=spon_id),
+        post=InfluencerPost.objects.get(id=post_id),
+        is_accepted=True
+    )
+    return redirect('notification')
+
 
 
 

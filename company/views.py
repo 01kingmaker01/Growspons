@@ -108,7 +108,7 @@ def accept_mail(request, id):
         'post':post,
         'sponsor':sponsor
     }
-    sendMail(request,email=sponsor.sponsor_id.email,mailFor=content ,msg='acceptDeal', subject='Sponsorship Acceptance')
+    sendMail(request,email=[post.influencer.influencer_id.email],mailFor=content ,msg='acceptDeal', subject='Sponsorship Acceptance')
     return redirect('dashboardCmp')
 
 
