@@ -30,7 +30,7 @@
         {% for post in posts %}
 
         {% if post.influencer.influencer_id != request.user.id %}
-        <div class="col-4">
+        <div class="col-3">
 
             <div class="wrapper">
                 <div class="post" style="background: url('{{post.post_img.url}}');background-size: cover;">

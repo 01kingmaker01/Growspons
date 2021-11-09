@@ -19,12 +19,6 @@ class Sponsor(models.Model):
     profile_img=models.ImageField(upload_to="profileImg/sponsor/")
     pancard=models.CharField(max_length=12,null=True)
     cin_no=models.CharField(max_length=21,null=True)
-    mode_of_transaction=models.CharField(max_length=25,choices=sorted({
-        ("1","NetBanking"),("2","Card"),("3","UPI"),("4","Other")
-    }))
-    bank_name=models.CharField(max_length=25,null=True)
-    IFSC_code=models.CharField(max_length=15,null=True)
-    account_no=models.CharField(max_length=15,null=True)
     phone_no=models.CharField(max_length=13)
     address=models.TextField(max_length=300)
     website_link=models.URLField(null=True)
@@ -32,7 +26,7 @@ class Sponsor(models.Model):
     instagram=models.URLField(null=True)
     twitter=models.URLField(null=True)
     other_link=models.URLField(null=True)
-    is_verified=models.BooleanField(null=True)
+    is_verified=models.BooleanField(null=True,default=False)
 
     def __str__(self):
         return str(self.sponsor_id.username)
@@ -100,6 +94,7 @@ class CmpSavePost(models.Model):
     def __str__(self):
         return str(self.post_id)
 
+
 class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     content_link=models.URLField()
@@ -110,8 +105,9 @@ class Content(models.Model):
 
 class Sponsored(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
-    sponsor=models.ForeignKey(Sponsor,on_delete=models.CASCADE)
-    posted=models.ForeignKey(Content,on_delete=models.CASCADE)
+    ## later change to influencer
+    post=models.ForeignKey(InfluencerPost, on_delete=models.CASCADE, null=True)
+    sponsor=models.ForeignKey(User,on_delete=models.CASCADE)
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
         ('online','online')
     }))
@@ -119,4 +115,7 @@ class Sponsored(models.Model):
     amount=models.IntegerField(null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
+
+    def __str__(self):
+        return str(self.transaction_id)
 

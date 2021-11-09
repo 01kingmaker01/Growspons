@@ -6,5 +6,7 @@ urlpatterns = [
 	path('creation/',views.creation,name="creation"),
 	path('dashboard/filter', views.dashboardFilter, name="dashboardFilterCmp"),
 	path('dashboard/save_post/', views.saved_post_view, name='cmp_save_post'),
-	path('payment/', views.payment, name="payment"),
+	path('payment/<int:post_id>/', views.payment, name="payment"),
+	path('transaction/', views.transaction, name="transaction"),
+	path('sponsored/', views.sponsored, name="sponsored"),
 ]

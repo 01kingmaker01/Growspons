@@ -16,6 +16,7 @@ urlpatterns = [
 	path('edit_profile/', edit_profile, name='edit_profile'),
 	path('personal_post/', personal_post, name='personal_post'),
 	path('delete_post/<int:id>/', delete_post, name='delete_post'),
+	path('notification/', notification, name='notification'),
 
 
     path('login/', loginHandle, name='login'),

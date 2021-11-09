@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from .models import *
 from .utils import *
+from .send_email import sendMail
 from app.decorators import unauthenticated_user, allowed_users
 from app.forms import UserForm, InfluencerForm, InluencerPostForm
 
@@ -20,7 +21,7 @@ def home(request):
 
 @login_required(login_url='login')
 def viewinf(request,pk):
-    content = {}
+    content = {'id':pk}
     try:
         view_obj = InfluencerPost.objects.filter(id=pk)
         content['view_obj'] = view_obj
@@ -197,6 +198,13 @@ def delete_post(request, id):
     InfluencerPost.objects.get(id=id).delete()
     return redirect('personal_post')
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def notification(request):
+    content = {}
+    context_addition(request, content)
+    return render(request, 'notification.html', content)
+
 
 
 
@@ -243,6 +251,9 @@ def signupHandle(request):
                     login(request, user)
                     request.session.set_expiry(60 * 60 * 24 * 7)
                     messages.success(request, f"created")
+                    sendMail(request, [user.email], {
+						'p1': user.username,
+						}, 'AddPAndWelcome', 'Welcome To Growspons')
                     return redirect('influencer_details')
                 except:
                     messages.error(request, f"username already exist")
@@ -273,7 +284,7 @@ def companySignupHandle(request):
                 login(request, user)
                 request.session.set_expiry(60 * 60 * 24 * 7)
                 messages.success(request, f"created")
-                return redirect('dashboardCmp')
+                return redirect('creation')
             except:
                 messages.error(request, f"username already exist")
                 return redirect('signUp')
