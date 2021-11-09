@@ -36,20 +36,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+               
                 <div class="mb-3">
-                    {{work.influencer}}
-                </div>
-                <div class="mb-3">
-                    {{work.post}}
-                </div>
-                <div class="mb-3">
-                    {{work.sponsor}}
-                </div>
-                <div class="mb-3">
+                    <label for="id_content_link">Link of Work</label>
                     {{work.content_link}}
                 </div>
-                <div>
+                <div style="display: none;">
                     {{work.is_accepted}}
+                    {{work.influencer}}
+                    {{work.post}}
+                 {{work.sponsor}}
                 </div>
             </div>
             <div class="modal-footer">
@@ -58,5 +54,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('input').addClass('form-control')
+    $('select').addClass('form-control')
+</script>
 {% endfor %}
 {% endblock%}
