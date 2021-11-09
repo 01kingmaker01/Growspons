@@ -154,7 +154,7 @@ def remove_saved_post(request):
             post=post,
             who_saved=Influencer.objects.get(influencer_id=request.user.id)
         ).delete()
-    messages.success(request, 'welcome back :)')    
+    messages.success(request, 'Removed')    
     return JsonResponse('Done', safe=False)
 
 
@@ -196,6 +196,7 @@ def personal_post(request):
 @allowed_users(allowed_roles=[group_inf])
 def delete_post(request, id):
     InfluencerPost.objects.get(id=id).delete()
+    messages.success(request,'Post Deleted')
     return redirect('personal_post')
 
 @login_required(login_url='login')
@@ -301,4 +302,5 @@ def companySignupHandle(request):
 
 def handleLogout(request):
     logout(request)
+    messages.success(request,"Bye Bye")
     return redirect('login')
