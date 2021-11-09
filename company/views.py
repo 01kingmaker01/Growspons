@@ -99,6 +99,7 @@ def sponsored(request):
     content = {'posts':posts}
     return render(request, 'company/history.html', content)
 
+<<<<<<< HEAD
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_cmp])
 def accept_mail(request, id):
@@ -114,6 +115,8 @@ def accept_mail(request, id):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_cmp])
+=======
+>>>>>>> a27fc9ae001c4112fee55cf287e2691e04c1e617
 def creation(request):
     form=SponserForm()
     if request.method=="POST":
@@ -123,7 +126,11 @@ def creation(request):
             form.save()
             return redirect("dashboardCmp")
     content={"form":form}
+<<<<<<< HEAD
     return render(request,"company/creation.html",content)
 
 
 
+=======
+    return render(request,"company/creation.html",content)
+>>>>>>> a27fc9ae001c4112fee55cf287e2691e04c1e617
