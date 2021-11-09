@@ -20,7 +20,7 @@ def home(request):
 
 @login_required(login_url='login')
 def viewinf(request,pk):
-    content = {}
+    content = {'id':pk}
     try:
         view_obj = InfluencerPost.objects.filter(id=pk)
         content['view_obj'] = view_obj
@@ -196,6 +196,13 @@ def personal_post(request):
 def delete_post(request, id):
     InfluencerPost.objects.get(id=id).delete()
     return redirect('personal_post')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_inf])
+def notification(request):
+    content = {}
+    context_addition(request, content)
+    return render(request, 'notification.html', content)
 
 
 

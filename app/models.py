@@ -100,6 +100,7 @@ class CmpSavePost(models.Model):
     def __str__(self):
         return str(self.post_id)
 
+
 class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
     content_link=models.URLField()
@@ -110,8 +111,9 @@ class Content(models.Model):
 
 class Sponsored(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
-    sponsor=models.ForeignKey(Sponsor,on_delete=models.CASCADE)
-    posted=models.ForeignKey(Content,on_delete=models.CASCADE)
+    ## later change to influencer
+    post=models.ForeignKey(InfluencerPost, on_delete=models.CASCADE, null=True)
+    sponsor=models.ForeignKey(User,on_delete=models.CASCADE)
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
         ('online','online')
     }))
@@ -119,4 +121,7 @@ class Sponsored(models.Model):
     amount=models.IntegerField(null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
+
+    def __str__(self):
+        return str(self.transaction_id)
 
