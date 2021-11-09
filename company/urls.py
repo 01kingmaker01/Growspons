@@ -9,4 +9,5 @@ urlpatterns = [
 	path('payment/<int:post_id>/', views.payment, name="payment"),
 	path('transaction/', views.transaction, name="transaction"),
 	path('sponsored/', views.sponsored, name="sponsored"),
+	path('accept_mail/<int:id>/', views.accept_mail, name="accept_mail"),
 ]

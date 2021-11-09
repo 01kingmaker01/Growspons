@@ -128,8 +128,7 @@ def save_post(request):
     if request.user.is_staff:
         CmpSavePost.objects.create(
             post=post,
-            ##change after sponsor details
-            who_saved=User.objects.get(id=request.user.id)
+            who_saved=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
         )
     else:
         InfSavePost.objects.create(
@@ -147,8 +146,7 @@ def remove_saved_post(request):
     if request.user.is_staff:
         CmpSavePost.objects.filter(
             post=post,
-            ##change after sponsor details
-            who_saved=User.objects.get(id=request.user.id)
+            who_saved=Sponsor.objects.get(sponsor_id=User.objects.get(username=request.user.username))
         ).delete()
     else:
         InfSavePost.objects.filter(
@@ -201,7 +199,9 @@ def delete_post(request, id):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_inf])
 def notification(request):
-    content = {}
+    id = User.objects.get(username=request.user.username).id
+    works = Content.objects.filter(influencer=Influencer.objects.get(influencer_id=id))
+    content = {'works':works}
     context_addition(request, content)
     return render(request, 'notification.html', content)
 

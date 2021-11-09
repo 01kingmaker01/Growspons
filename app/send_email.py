@@ -14,7 +14,7 @@ def sendMail(request, email, mailFor, msg, subject):
         template = get_template('authentication/acceptemail.html').render(content)    
 
     else:
-        pass
+        template = get_template('authentication/acceptemail.html').render(content)
     
     if not subject:
         subject = 'Welcome to The Growspons'

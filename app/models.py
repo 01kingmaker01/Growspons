@@ -87,7 +87,7 @@ class InfSavePost(models.Model):
         return str(self.post_id)
 
 class CmpSavePost(models.Model):
-    who_saved = models.ForeignKey(User, on_delete=models.CASCADE)    # later change to Sponser
+    who_saved = models.ForeignKey(Sponsor, on_delete=models.CASCADE)    # later change to Sponser
     post = models.ForeignKey(InfluencerPost, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
 
@@ -97,17 +97,17 @@ class CmpSavePost(models.Model):
 
 class Content(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
-    content_link=models.URLField()
+    post=models.ForeignKey(InfluencerPost, on_delete=models.CASCADE)
+    sponsor = models.ForeignKey(Sponsor, on_delete=models.CASCADE)
+    content_link=models.URLField(null=True, blank=True)
     is_accepted=models.BooleanField()
-    comment=models.CharField(max_length=300)
     def __str__(self):
         return str(self.influencer.influencer_id.username)
 
 class Sponsored(models.Model):
     influencer=models.ForeignKey(Influencer,on_delete=models.CASCADE)
-    ## later change to influencer
     post=models.ForeignKey(InfluencerPost, on_delete=models.CASCADE, null=True)
-    sponsor=models.ForeignKey(User,on_delete=models.CASCADE)
+    sponsor=models.ForeignKey(Sponsor,on_delete=models.CASCADE)
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
         ('online','online')
     }))
