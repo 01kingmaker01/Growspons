@@ -19,12 +19,6 @@ class Sponsor(models.Model):
     profile_img=models.ImageField(upload_to="profileImg/sponsor/")
     pancard=models.CharField(max_length=12,null=True)
     cin_no=models.CharField(max_length=21,null=True)
-    mode_of_transaction=models.CharField(max_length=25,choices=sorted({
-        ("1","NetBanking"),("2","Card"),("3","UPI"),("4","Other")
-    }))
-    bank_name=models.CharField(max_length=25,null=True)
-    IFSC_code=models.CharField(max_length=15,null=True)
-    account_no=models.CharField(max_length=15,null=True)
     phone_no=models.CharField(max_length=13)
     address=models.TextField(max_length=300)
     website_link=models.URLField(null=True)
@@ -32,7 +26,7 @@ class Sponsor(models.Model):
     instagram=models.URLField(null=True)
     twitter=models.URLField(null=True)
     other_link=models.URLField(null=True)
-    is_verified=models.BooleanField(null=True)
+    is_verified=models.BooleanField(null=True,default=False)
 
     def __str__(self):
         return str(self.sponsor_id.username)

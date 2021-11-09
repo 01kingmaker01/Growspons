@@ -284,7 +284,7 @@ def companySignupHandle(request):
                 login(request, user)
                 request.session.set_expiry(60 * 60 * 24 * 7)
                 messages.success(request, f"created")
-                return redirect('dashboardCmp')
+                return redirect('creation')
             except:
                 messages.error(request, f"username already exist")
                 return redirect('signUp')

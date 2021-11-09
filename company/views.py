@@ -2,13 +2,16 @@ import random
 
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from app.models import *
 from app.utils import *
 from app.decorators import allowed_users
 
+from .forms import SponserForm
+
 group_cmp = 'Company'
+
 
 
 @login_required(login_url='login')
@@ -56,6 +59,9 @@ def saved_post_view(request):
                }
     return render(request, 'company/save_post.html', content)
 
+
+
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=[group_cmp])
 def payment(request, post_id):
@@ -92,3 +98,14 @@ def sponsored(request):
     posts = [i.post for i in sponsored_details]
     content = {'posts':posts}
     return render(request, 'company/history.html', content)
+
+def creation(request):
+    form=SponserForm()
+    if request.method=="POST":
+        form=SponserForm(request.POST,request.FILES)
+        print(form)
+        if form.is_valid():
+            form.save()
+            return redirect("dashboardCmp")
+    content={"form":form}
+    return render(request,"company/creation.html",content)
