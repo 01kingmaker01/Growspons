@@ -45,13 +45,18 @@ def dashboardFilter(request):
     return JsonResponse({'data': template})    
 
 
-# @login_required(login_url='login')
-# @allowed_users(allowed_roles=[group_cmp])
-# def saved_post_view(request):
-#     saved_posts = InfSavePost.objects.filter(who_saved=Influencer.objects.get(influencer_id=request.user.id)).order_by("-id")
-#     saved_post_ls = [i.post.id for i in saved_posts]
-#     content = {'posts':saved_posts,
-#                'saved_post_ls':saved_post_ls,
-               
-#                }
-#     return render(request, 'saved_post_view.html', content)     
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_cmp])
+def payment(request):
+    content = {}
+    return render(request, 'company/payment.html', content)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=[group_cmp])
+def saved_post_view(request):
+    saved_posts = CmpSavePost.objects.filter(who_saved=User.objects.get(id=request.user.id)).order_by("-id")
+    saved_post_ls = [i.post.id for i in saved_posts]
+    content = {'posts':saved_posts,
+               'saved_post_ls':saved_post_ls,
+               }
+    return render(request, 'company/save_post.html', content)

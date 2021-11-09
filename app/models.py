@@ -113,8 +113,10 @@ class Sponsored(models.Model):
     sponsor=models.ForeignKey(Sponsor,on_delete=models.CASCADE)
     posted=models.ForeignKey(Content,on_delete=models.CASCADE)
     mode_of_sponsorship=models.CharField(max_length=50,choices=sorted({
-
+        ('online','online')
     }))
     transaction_id=models.CharField(max_length=50)
     amount=models.IntegerField(null=True)
+    date = models.DateTimeField(auto_now_add=True, null=True)
+    complete = models.BooleanField(default=False, null=True, blank=False)
 
