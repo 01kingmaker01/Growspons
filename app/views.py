@@ -344,5 +344,5 @@ def companySignupHandle(request):
 
 def handleLogout(request):
     logout(request)
-    messages.success(request,"Bye Bye")
+    messages.success(request,"Thanks for using growspons")
     return redirect('login')

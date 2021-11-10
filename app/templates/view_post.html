@@ -10,40 +10,6 @@
 <style>
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,800&display=swap');
 
-
-
-    section {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .container {
-        position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        width: 70%;
-        background: #fff;
-        margin-top: 7%;
-    }
-
-    .container .imgBx {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 50%;
-    }
-
-
-
-    .container .imgBx img {
-        position: relative;
-        width: 700px;
-        height: 470px;
-    }
-
     .container .details {
         display: flex;
         justify-content: center;
@@ -64,11 +30,14 @@
 
 
 
-    .container .details h2 span {
+    .container .details h2 a {
         font-size: 0.4em;
         text-transform: uppercase;
-        letter-spacing: 2px;
         color: #999;
+        text-decoration: none;
+    }
+    .container .details h2 a:hover{
+        color: #202020;
     }
 
     .container .details p {
@@ -86,7 +55,6 @@
         position: relative;
         display: flex;
         flex-wrap: wrap;
-        width: 75%;
         margin-bottom: 50px;
     }
 
@@ -157,30 +125,36 @@
     }
 </style>
 
-</head>
 
-<body>
-
+<div class="container mt-5 pt-5">
     {% for views in view_obj %}
-
-
-    <section>
-        <div class="container">
-            <div class="imgBx">
-                <img src="{{views.post_img.url}}" alt="postImg">
+    <section class="mt-5">
+        <div class="row">
+            <div class="col-4">
+                <div>
+                    <img class="img-thumbnail" style="max-height: 25rem;" src="{{views.post_img.url}}" alt="postImg">
+                </div>
             </div>
-            <div class="details">
-                <div class="content">
-                    <h2>{{views.title}} <br>
-                        <span>{{views.influencer}}</span>
-                    </h2>
-                    <p>
-                        {{views.description}}
-                    </p>
+
+            <div class="col-8">
+                <div class="details">
+                    <div class="content">
+                        <h2>{{views.title}} <br>
+                            {% if request.user.is_staff %}
+                            <a href="{% url 'profile_cmp' views.influencer.id %}"><span>@{{views.influencer}}</span></a>
+                            {% else %}
+                            <a href="{% url 'profile'%}"><span>@{{views.influencer}}</span></a>
+                            {% endif %}
+                        </h2>
+                        <p>
+                            {{views.description}}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
     <section>
         <div class="group">
             <div class="detailview">
@@ -311,6 +285,5 @@
         </div>
     </section>
     {% endfor %}
-
-
-    {% endblock%}
+</div>
+{% endblock%}

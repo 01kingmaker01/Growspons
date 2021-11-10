@@ -10,4 +10,7 @@ urlpatterns = [
 	path('transaction/', views.transaction, name="transaction"),
 	path('sponsored/', views.sponsored, name="sponsored"),
 	path('accept_mail/<int:id>/', views.accept_mail, name="accept_mail"),
+ 
+ 	path('profile/<int:id>/', views.profile_cmp, name='profile_cmp'),
+	path('personal_post/<int:id>/', views.personal_post_cmp, name='personal_post_cmp'),
 ]

@@ -135,4 +135,18 @@ def creation(request):
     return render(request,"company/creation.html",content)
 
 
+@login_required(login_url='login')
+def profile_cmp(request, id):
+    influencer = Influencer.objects.get(id=id)
+    socialmedia = InfSocialMedia.objects.filter(influencer=influencer)
+    content = {'socialmedia':socialmedia, 'influencer':influencer}
+    return render(request, 'company/profile/profile.html', content)
+
+@login_required(login_url='login')
+def personal_post_cmp(request, id):
+    influencer = Influencer.objects.get(id=id)
+    posts = InfluencerPost.objects.filter(influencer=influencer)
+    content = {'influencer':influencer, 'posts':posts}
+    return render(request, 'company/profile/post.html', content)
+
 
