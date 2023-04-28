@@ -5,6 +5,7 @@ Gone are the days when brands used to advertise their business on television! Ol
 The thing that motivates these influencers is monetization. Companies and brands pay these influencers to promote their businesses. What this new model of marketing lacks is a proper connection window between the influencers and sponsor companies. Both parties require a proper platform on which they could engage and carry out their business. The objective of GrowSpons is to bridge this gap between the influencers and sponsor companies.
 
 The project aims to build a website on which:
-a) Influencers and Content Creators could post their profiles and link their social-media platform, mentioning the kind of business they would look forward to connecting with!
-and
+<br/>
+a) Influencers and Content Creators could post their profiles and link their social-media platform, mentioning the kind of business they would look forward to connecting with
+<br/>
 b) Companies and Sponsors could look at various profiles of influencers with proper segregation based on Social Media Platforms and the Genre, thus helping them select the right candidate.
